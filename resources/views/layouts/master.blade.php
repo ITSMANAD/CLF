@@ -31,32 +31,50 @@
     <nav class="navbar direction-ltr fixed-top header-responsive">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="#pablo">
-                    <img src="/assets/img/logo.png" height="24px" alt="">
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/img/logo.png" class="header-responsive w-25"  alt="">
                 </a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-bar bar1"></span>
-                    <span class="navbar-toggler-bar bar2"></span>
-                    <span class="navbar-toggler-bar bar3"></span>
+                <button class="navbar-toggler navbar-toggler-icon text-center fs-5" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+
                 </button>
-                <div class="search-nav default">
+                <div class="search-nav default w-75">
                     <form action="">
                         <input type="text" placeholder="جستجو ...">
                         <button type="submit"><img src="/assets/img/search.png" alt=""></button>
                     </form>
                     <ul>
-                        <li><a href=# /><i class="now-ui-icons users_single-02"></i></a></li>
-                        <li><a href=# /><i class="now-ui-icons shopping_basket"></i></a></li>
+                        <li><a href="{{route('dashboard')}}"><i class="now-ui-icons users_single-02"></i></a></li>
+                        <li>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <button type="button" class="btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="now-ui-icons shopping_basket"></i>
+                        </button>
+
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                <div class="logo-nav-res default text-center">
-                    <a href=# />
-                    <img src="/assets/img/logo.png" height="36px" alt="">
-                    </a>
-                </div>
+            <div class="collapse navbar-collapse mt-5 justify-content-end" id="navigation">
                 <ul class="navbar-nav default">
                     <li class="sub-menu">
                         <a href=# />کالای دیجیتال</a>
@@ -254,11 +272,11 @@
 
     <!-- Main Header -->
     <header class="main-header default">
-        <div class="container">
+        <div class="container is-max-desktop">
             <div class="row">
                 <div class="col-lg-2 col-md-3 col-sm-4 col-5">
                     <div class="logo-area default">
-                        <a href=# />
+                        <a href="/">
                         <img src="{{ $setting['slogo'] }}" alt="">
                         </a>
                     </div>
@@ -274,16 +292,31 @@
                 <div class="col-md-4 col-sm-12">
                     @auth
                     <div class="user-login dropdown">
-                        <a href=#/ class="btn btn-neutral dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink1">
-                           پنل کاربری
+                        <a href="" class="btn btn-light text-light dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink1">
+                            <i class="fa fa-user-circle-o fs-5"></i>
+                            {{auth()->user()->name}}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
                             <div class="dropdown-item">
+
                             <div class="d-grid gap-2">
 
-                                <x-nav-link :href="route('dashboard')" class="btn btn-info text-bold">ورود به داشبورد</x-nav-link>
+                                <a href="{{route('dashboard')}}">
+                                    <i class="fa fa-tachometer fs-5"></i>
+                                    پروفایل کاربر</a>
                             </div>
+
+
                         </div>
+                            <div class="dropdown-item">
+
+                                <div class="d-grid gap-2">
+
+                                    <a href="{{route('logout')}}">
+                                        <i class="fa fa-sign-out fs-5"></i>
+                                        خروج از حساب</a>
+                                </div>
+                            </div>
                         </ul>
                     </div>
 
@@ -350,7 +383,7 @@
             </div>
         </div>
         <nav class="main-menu">
-            <div class="container">
+            <div class="container is-max-desktop">
                 <ul class="list float-right">
                     <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
                         <a class="nav-link" href=# />کالای دیجیتال</a>
@@ -959,7 +992,7 @@
     <!-- Some Scripts -->
     <script src="/assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
     <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
     <script src="/assets/js/plugins/bootstrap-switch.js"></script>
     <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html data-theme="light" lang="en" dir="rtl">
 
 <head>
     @foreach($Settings['setting'] as $setting)
@@ -17,14 +17,22 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
     <!-- bootstrap rtl -->
-    <link rel="stylesheet" href="/dist/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <!-- template rtl version -->
-    <link rel="stylesheet" href="/dist/css/custom-style.css">
 
+    <link rel="stylesheet" href="/dist/css/custom-style.css">
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
+        <script src="//cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
 
 </head>
 
 <body>
+<div class="loader-container">
+    <div class="loader"></div>
+</div>
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom ">
     <!-- Left navbar links -->
@@ -58,7 +66,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('admin')}}" class="brand-link bg-light">
-        <img src="/assets/img/logo.png" alt="{{$setting['sname']}} Logo" class="brand-image "
+        <img src="@foreach($Settings['setting'] as $setting) {{$setting['slogo']}} @endforeach" alt="{{$setting['sname']}} Logo" class="brand-image "
              style="opacity: .8">
         <span class="brand-text font-weight-light">{{$setting['sname']}}</span>
     </a>
@@ -87,6 +95,77 @@
                             <p>داشبورد</p>
                         </a>
                     </li>
+                    <li class="nav-header">محتوا</li>
+                    <li class="nav-item has-treeview ">
+                        <a href="#" class="nav-link @if(request()->is('admin/categories')) active @endif @if(request()->is('admin/categories/add')) active @endif @if(request()->is('admin/categories/*')) active @endif">
+                            <i class="nav-icon fa fa-shopping-cart"></i>
+                            <p>
+                                فروشگاه
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{route('CategorySettings')}}" class="nav-link @if(request()->is('admin/categories')) active @endif @if(request()->is('admin/categories/add')) active @endif">
+                                    <i class="fa fa-bookmark nav-icon"></i>
+                                    <p>دسته بندی ها</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview ">
+                        <a href="#" class="nav-link @if(request()->is('admin/users')) active @endif @if(request()->is('admin/users/add')) active @endif">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                کاربران
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{route('UsersSettings')}}" class="nav-link @if(request()->is('admin/users')) active @endif">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>لیست کاربران</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('UsersAdd')}}" class="nav-link @if(request()->is('admin/users/add')) active @endif">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>افزودن کاربر</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview ">
+                        <a href="#" class="nav-link @if(request()->is('admin/blog/categories')) active @endif @if(request()->is('admin/blog/categories/add')) active @endif @if(request()->is('admin/blog/categories/*')) active @endif">
+                            <i class="nav-icon fa fa-rss"></i>
+                            <p>
+                                وبلاگ
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{route('BlogPosts')}}" class="nav-link @if(request()->is('admin/blog/posts')) active @endif ">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>لیست نوشته ها</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('BlogNewPost')}}" class="nav-link @if(request()->is('admin/blog/posts/new')) active @endif ">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>افزودن پست</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('BlogCategory')}}" class="nav-link @if(request()->is('admin/blog/categories')) active @endif ">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>دسته بندی ها</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                     <li class="nav-header">تنظیمات</li>
                     <li class="nav-item">
                         <a href="{{route('GeneralSettings')}}" class="nav-link @if(request()->is('admin/settings')) active @endif">
@@ -96,8 +175,15 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{route('HomeSettings')}}" class="nav-link @if(request()->is('admin/settings/home')) active @endif">
-                            <i class="fa fa-file-image-o"></i>
+                            <i class="fa fa-file-image-o nav-icon"></i>
                             <p> ویرایش صفحه اول</p>
+                        </a>
+                    </li>
+                    <li class="nav-header">متفرقه</li>
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="fa fa-window-maximize nav-icon"></i>
+                            <p> بازدید از سایت</p>
                         </a>
                     </li>
                 </ul>
@@ -114,6 +200,7 @@
 
 @endforeach
 <!-- REQUIRED SCRIPTS -->
+
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->

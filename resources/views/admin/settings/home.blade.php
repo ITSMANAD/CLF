@@ -27,79 +27,263 @@
                         برای دیدن آموزش نحوه ویرایش بنر ها کلیک کنید!
                     </a>
                 </div>
+
                 <br>
-                <div class="col-12">
-                    <!-- Custom Tabs -->
-                    <div class="card">
-                        <div class="card-header d-flex p-0">
-                            <h3 class="card-title p-3">ویرایش منو ها</h3>
-                            <ul class="nav nav-pills ml-auto p-2">
-                                <li class="nav-item"><a class="nav-link active show" href="#tab_1" data-toggle="tab">H1</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">H2</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">H3</a></li>
+                {{--        Big Slider        --}}
+               <div class="card card-light border-0 shadow-sm">
+                   <div class="card-header bg-white">
+                       <div class="card-title">اسلایدر بزرگ 436*872</div>
+                   </div>
+                   <div class="card-body">
+                       <div class="col-12 ">
+                           <!-- Custom Tabs -->
+                           <div class="overflow-x-auto">
+                               <table class="table">
+                                   <!-- head -->
+                                   <thead>
+                                   <tr class="">
+                                       <th>تصویر نمایه</th>
+                                       <th>عنوان</th>
+                                       <th>وضعیت</th>
+                                       <th>عملیات</th>
 
-                            </ul>
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="tab-content">
-                                <div class="tab-pane active show" id="tab_1">
-                                    <label for="img1" class="text-right">بنر فعلی :</label>
-                                    @php
-                                    $h1 = \App\Models\Banners::all()->whereIn('blocation','h1');
-                                    @endphp
-                                    @foreach($h1 as $banner)
-                                    <img id="img1" src="{{$banner['bimage']}}" class="img-thumbnail" alt="...">
-                                    @endforeach
-                                    <br><br>
-                                    <div class="mb-3">
-                                        <label for="formFile" class="form-label">آپلود بنر جدید</label>
-                                        <input class="form-control" type="file" id="formFile">
-                                    </div>
-     </div>
-                                <!-- /.tab-pane -->
-                                <div class="tab-pane" id="tab_2">
-                                    <label for="img1" class="text-right">بنر فعلی :</label>
-                                    @php
-                                        $h2 = \App\Models\Banners::all()->whereIn('blocation','h2');
-                                    @endphp
-                                    @foreach($h2 as $banner)
-                                        <img id="img1" src="{{$banner['bimage']}}" class="img-thumbnail" alt="...">
-                                    @endforeach
-                                    <br><br>
-                                    <div class="mb-3">
-                                        <label for="formFile" class="form-label">آپلود بنر جدید</label>
-                                        <input class="form-control" type="file" id="formFile">
-                                    </div>
-                                </div>
-                                <!-- /.tab-pane -->
-                                <div class="tab-pane" id="tab_3">
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   @foreach($h1 as $banner)
+                                   <tr >
+                                       <th>
+                                           <div class="">
+                                               <div class="">
+                                                   <img src="{{$banner->bimage}}" alt="{{$banner->bimage}}" style="height: 82px" class="img-thumbnail" />
+                                               </div>
+                                           </div>
+                                       </th>
+                                       <td>
+                                           <div class="flex items-center gap-3">
 
-                                    @php
-                                        $h3 = \App\Models\Banners::all()->whereIn('blocation','h3');
-                                    @endphp
-                                    @foreach($h3 as $banner)
-                                        <label for="img1" class="text-right">{{$banner['bname']}}<label>
-                                        <img id="img1" src="{{$banner['bimage']}}" class="img-thumbnail p-3 m-3" alt="...">
-                                    @endforeach
+                                               <div>
+                                                   <div class="font-bold">{{$banner->bname}}</div>
+                                               </div>
+                                           </div>
+                                       </td>
+                                       <td>
+                                           {{$banner->balt}}
+                                       </td>
+                                       <th>
+                                           <a href="/admin/settings/home/{{$banner->id}}" class="btn btn-warning btn-xs">ویرایش</a>
+                                       </th>
+                                   </tr>
+                                   @endforeach
+                                   </tbody>
+                                   <!-- foot -->
+                                   <tfoot>
+                                   <tr>
+                                       <th>تصویر نمایه</th>
+                                       <th>عنوان</th>
+                                       <th>وضعیت</th>
+                                       <th>عملیات</th>
 
+                                   </tr>
+                                   </tfoot>
 
-                                                <div class="position-relative mb-3 mt-3">
-
-                                                    <label for="formFile" class="form-label">آپلود عکس جدید</label>
-                                                    <input class="form-control" type="file" id="formFile">
-
-                                                    <label for="formFile" class="form-label">alt عکس</label>
-                                                    <input class="form-control" type="file" id="formFile">
-
-                                                </div>
-                                </div>
-
-                                <!-- /.tab-pane -->
-                            </div>
-                            <!-- /.tab-content -->
-                        </div><!-- /.card-body -->
+                               </table>
+                           </div>
+                           <!-- ./card -->
+                       </div>
+                   </div>
+               </div>
+                {{--        Small Images        --}}
+                <div class="card card-light border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <div class="card-title">بنر های کوچک کنار اسلایدر بزرگ 212*424</div>
                     </div>
-                    <!-- ./card -->
+                    <div class="card-body">
+                        <div class="col-12 ">
+                            <!-- Custom Tabs -->
+                            <div class="overflow-x-auto">
+                                <table class="table">
+                                    <!-- head -->
+                                    <thead>
+                                    <tr class="">
+                                        <th>تصویر نمایه</th>
+                                        <th>عنوان</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($h2 as $banner)
+                                    <tr >
+                                        <th>
+                                            <div class="">
+                                                <div class="">
+                                                    <img src="{{$banner->bimage}}" alt="{{$banner->balt}}" style="height: 82px" class="img-thumbnail" />
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <div class="flex items-center gap-3">
+
+                                                <div>
+                                                    <div class="font-bold">{{$banner->banme}}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{$banner->balt}}
+                                        </td>
+                                        <th>
+                                            <a href="/admin/settings/home/{{$banner->id}}" class="btn btn-warning btn-xs">ویرایش</a>
+                                        </th>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <!-- foot -->
+                                    <tfoot>
+                                    <tr>
+                                        <th>تصویر نمایه</th>
+                                        <th>عنوان</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
+
+                                    </tr>
+                                    </tfoot>
+
+                                </table>
+                            </div>
+                            <!-- ./card -->
+                        </div>
+                    </div>
+                </div>
+                {{--        Wide Banner        --}}
+                <div class="card card-light border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <div class="card-title">بنر پهن 167*1320</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-12 ">
+                            <!-- Custom Tabs -->
+                            <div class="overflow-x-auto">
+                                <table class="table">
+                                    <!-- head -->
+                                    <thead>
+                                    <tr class="">
+                                        <th>تصویر نمایه</th>
+                                        <th>عنوان</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($h3 as $banner)
+                                    <tr >
+                                        <th>
+                                            <div class="">
+                                                <div class="">
+                                                    <img src="{{$banner->bimage}}" alt="{{$banner->balt}}" style="height: 82px" class="img-thumbnail" />
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <div class="flex items-center gap-3">
+
+                                                <div>
+                                                    <div class="font-bold">{{$banner->bname}}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{$banner->balt}}
+                                        </td>
+                                        <th>
+                                            <a href="/admin/settings/home/{{$banner->id}}" class="btn btn-warning btn-xs">ویرایش</a>
+                                        </th>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <!-- foot -->
+                                    <tfoot>
+                                    <tr>
+                                        <th>تصویر نمایه</th>
+                                        <th>عنوان</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
+
+                                    </tr>
+                                    </tfoot>
+
+                                </table>
+                            </div>
+                            <!-- ./card -->
+                        </div>
+                    </div>
+                </div>
+                {{--        Four Banners        --}}
+                <div class="card card-light border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <div class="card-title">بنر های چهارتایی 234*312</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-12 ">
+                            <!-- Custom Tabs -->
+                            <div class="overflow-x-auto">
+                                <table class="table">
+                                    <!-- head -->
+                                    <thead>
+                                    <tr class="">
+                                        <th>تصویر نمایه</th>
+                                        <th>عنوان</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($h4 as $banner)
+                                    <tr >
+                                        <th>
+                                            <div class="">
+                                                <div class="">
+                                                    <img src="{{$banner->bimage}}" alt="{{$banner->balt}}" style="height: 82px" class="img-thumbnail" />
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <div class="flex items-center gap-3">
+
+                                                <div>
+                                                    <div class="font-bold">{{$banner->bname}}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{$banner->balt}}
+                                        </td>
+                                        <th>
+                                            <a href="/admin/settings/home/{{$banner->id}}" class="btn btn-warning btn-xs">ویرایش</a>
+                                        </th>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <!-- foot -->
+                                    <tfoot>
+                                    <tr>
+                                        <th>تصویر نمایه</th>
+                                        <th>عنوان</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
+
+                                    </tr>
+                                    </tfoot>
+
+                                </table>
+                            </div>
+                            <!-- ./card -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

@@ -57,6 +57,19 @@
     url('../fonts/Vazir-Black.ttf') format('truetype');
     font-weight: 900;
 }
+@font-face {
+    font-family: iranyekan;
+    font-style: normal;
+    font-weight: bold;
+    src: url('/assets/fonts/iranyekan/eot/iranyekanwebbold(fanum).eot');
+    src: url('/assets/fonts/iranyekan/eot/iranyekanwebbold(fanum).eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */
+    url('/assets/fonts/iranyekan/woff2/iranyekanwebbold(fanum).woff2') format('woff2'),
+        /* FF39+,Chrome36+, Opera24+*/
+    url('/assets/fonts/iranyekan/woff/iranyekanwebbold(fanum).woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('/assets/fonts/iranyekan/ttf/iranyekanwebbold(fanum).ttf') format('truetype');
+}
 
 /*---------------------------------- End of fonts ---------------------------------- */
 
@@ -270,4 +283,45 @@ ul {
 
 .datepicker-plot-area {
     font-family: 'Vazir', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(156, 156, 156);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loader {
+    border: 6px solid #f3f3f3; /* حاشیه با رنگ سفید */
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* متن Loading با رنگ سفید */
+.loader-container::after {
+    content: 'بارگذاری صفحه';
+    color: #fff;
+    font-size: 1.2em;
+    margin-right: 10px;
 }

@@ -16,9 +16,16 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->user()->isAdmin) {
-            abort(403, 'شما اجازه دسترسی به این صفحه را ندارید.');
+        if (auth()->check()){
+            if (auth()->user()->isAdmin) {
+
+            }else{
+                abort(403, 'شما اجازه دسترسی به این صفحه را ندارید.');
+            }
+        }else{
+            return redirect('/login');
         }
+
         return $next($request);
     }
 }
