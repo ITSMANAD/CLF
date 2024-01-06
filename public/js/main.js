@@ -1,4 +1,4 @@
-(function ($) {
+ (function ($) {
     "use strict";
 
     // Spinner
@@ -10,8 +10,8 @@
         }, 1);
     };
     spinner();
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
@@ -112,7 +112,7 @@
             responsive: true
         }
     });
-    
+
 
 
     // Single Line Chart
@@ -202,6 +202,48 @@
         }
     });
 
-    
+
 })(jQuery);
+
+ function SubmitAddCategory() {
+     var formData = new FormData(document.getElementById('SubmitAddCategory'));
+     axios.post('/admin/categories/add', formData)
+         .then(function (response) {
+             window.location.pathname = "/admin/categories";
+
+         })
+         .catch(function (error) {
+             document.getElementById('alert').style.display = 'block';
+             var result = document.getElementById('alert_text');
+             result.innerHTML = translateErrors(error.response.data.errors);
+             setTimeout(function() {
+                 document.getElementById('alert').style.display = 'none';
+             }, 20000);
+         });
+ }
+ function CategoryUpdateOne() {
+     var formData = new FormData(document.getElementById('CategoryUpdateOne'));
+     axios.post('/admin/categories/edit', formData)
+         .then(function (response) {
+             window.location.pathname = "/admin/categories";
+
+         })
+         .catch(function (error) {
+             document.getElementById('alert').style.display = 'block';
+             var result = document.getElementById('alert_text');
+             result.innerHTML = translateErrors(error.response.data.errors);
+             setTimeout(function() {
+                 document.getElementById('alert').style.display = 'none';
+             }, 20000);
+         });
+ }
+ function translateErrors(errors) {
+     var translatedErrors = [];
+     for (var field in errors) {
+         if (errors.hasOwnProperty(field)) {
+             translatedErrors.push(errors[field][0]);
+         }
+     }
+     return translatedErrors.join('<br>');
+ }
 

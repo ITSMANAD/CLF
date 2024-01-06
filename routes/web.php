@@ -17,6 +17,9 @@ use App\Http\Controllers\MainController;
 
 Route::controller(MainController::class)->group(function(){
     Route::get('/','index')->name('index');
+    Route::get('/posts','blog')->name('Blog');
+    Route::get('/posts/{slug}','blogpost')->name('BlogPost');
+    Route::get('/posts/category/{slug}','blogcategory')->name('BlogCategory');
 });
 
 Route::get('/dashboard', function () {
@@ -42,7 +45,7 @@ Route::controller(AdminController::class)->group(function () {
     Route::patch('/admin/categories/delete/sub','CategorySubDelete')->name('CategorySubDelete');
     Route::patch('/admin/categories/delete/mega','CategoryMegaDelete')->name('CategoryMegaDelete');
     Route::get('/admin/categories/add','CategoryAdd')->name('CategoryAdd');
-    Route::patch('/admin/categories/add','CategoryAddOne')->name('CategoryAddOne');
+    Route::post('/admin/categories/add','CategoryAddOne')->name('CategoryAddOne');
     Route::patch('/admin/categories/add/sub','CategoryAddSubOne')->name('CategoryAddSubOne');
     Route::get('/admin/categories/add/sub','CategorySubAdd')->name('CategorySubAdd');
     Route::get('/admin/categories/add/mega','CategoryMegaAdd')->name('CategoryMegaAdd');
@@ -51,7 +54,7 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/admin/categories/edit/sub/{id}','SubCategoryEdit');
     Route::get('/admin/categories/edit/mega/{id}','MegaCategoryEdit');
 
-    Route::patch('/admin/categories/edit','CategoryUpdateOne')->name('CategoryUpdateOne');
+    Route::post('/admin/categories/edit','CategoryUpdateOne')->name('CategoryUpdateOne');
     Route::patch('/admin/categories/edit/sub','SubCategoryUpdateOne')->name('SubCategoryUpdateOne');
     Route::patch('/admin/categories/edit/mega','MegaCategoryUpdateOne')->name('MegaCategoryUpdateOne');
 
@@ -81,7 +84,10 @@ Route::controller(AdminController::class)->group(function () {
         //Main Of Blog
         Route::get('/admin/blog/posts','BlogPosts')->name('BlogPosts');
         Route::get('/admin/blog/posts/new','BlogNewPost')->name('BlogNewPost');
-        Route::patch('/admin/blog/posts/new','BlogNewPostSubmit')->name('BlogNewPostSubmit');
+        Route::get('/admin/blog/posts/edit/{id}','BlogEditPost')->name('BlogEditPost');
+        Route::post('/admin/blog/posts/edit','BlogEditPostSubmit')->name('BlogEditPostSubmit');
+        Route::post('/admin/blog/posts/new','BlogNewPostSubmit')->name('BlogNewPostSubmit');
+        Route::put('/admin/blog/posts/delete','BlogDeletePost')->name('BlogDeletePost');
 
 
 

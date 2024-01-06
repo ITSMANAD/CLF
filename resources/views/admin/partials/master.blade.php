@@ -200,7 +200,7 @@
 
 @endforeach
 <!-- REQUIRED SCRIPTS -->
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
@@ -210,6 +210,7 @@
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="/dist/js/demo.js"></script>
+<script src="/js/main.js"></script>
 
 <!-- PAGE PLUGINS -->
 <!-- SparkLine -->

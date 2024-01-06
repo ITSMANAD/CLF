@@ -1,61 +1,93 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" class="text-end">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('نام')" />
-            <x-text-input id="name" class="block mt-1 w-full text-end" type="text" name="name" :value="old('name')" required autofocus autocomplete="none" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+@extends('layouts.master')
+@foreach ($Settings['setting'] as $setting)
+    @section('title')
+        {{ $setting['sname'] }}
+    @endsection
+    @section('content')
+<div class="container">
+    <div class="row">
+        <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
+            <div class="account-box">
+                <a href="#" class="logo">
+                    <img src="assets/img/logo.png" alt="">
+                </a>
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="account-box-title">ثبت‌نام در {{ $setting['sname'] }} </div>
+                <div class="account-box-content">
+                    <form method="POST" action="{{ route('register') }}" class="text-end">
+                        @csrf
+                        <div class="form-account-title">پست الکترونیک </div>
+                        <div class="form-account-row">
+                            <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
+                            <input class="input-field" name="email" type="email"
+                                   placeholder="پست الکترونیک خود را وارد نمایید">
+                        </div>
+                        <div class="form-account-title">نام و نام خانوادگی</div>
+                        <div class="form-account-row">
+                            <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
+                            <input class="input-field text-start" name="name" type="text"
+                                   placeholder="نام و نام خانوادگی خود را وارد نمایید">
+                        </div>
+                        <div class="form-account-title">آدرس دقیق</div>
+                        <div class="form-account-row">
+                            <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
+                            <input class="input-field text-start" name="address" type="text"
+                                   placeholder="آدرس محل سکونت خود را وارد نمایید">
+                        </div>
+                        <div class="form-account-title">کدپستی</div>
+                        <div class="form-account-row">
+                            <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
+                            <input class="input-field text-start" name="postalcode" type="text"
+                                   placeholder="کد پستی خود را وارد نمایید">
+                        </div>
+                        <div class="form-account-title">شماره همراه</div>
+                        <div class="form-account-row">
+                            <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
+                            <input class="input-field text-start" name="phone" type="tel"
+                                   placeholder="شماره همراه خود را وارد نمایید">
+                        </div>
+                        <div class="form-account-title">کلمه عبور</div>
+                        <div class="form-account-row">
+                            <label class="input-label"><i
+                                    class="now-ui-icons ui-1_lock-circle-open"></i></label>
+                            <input name="password" class="input-field" type="password"
+                                   placeholder="کلمه عبور خود را وارد نمایید">
+                        </div>
+                        <div class="form-account-agree">
+                            <label class="checkbox-form checkbox-primary">
+                                <input type="checkbox" checked="checked">
+                                <span class="checkbox-check"></span>
+                            </label>
+                            <label for="agree">
+                                <a href="#" class="btn-link-border">حریم خصوصی</a> و <a href="#"
+                                                                                        class="btn-link-border">شرایط و قوانین</a> استفاده از سرویس های سایت
+                                {{ $setting['sname'] }} را مطالعه نموده و با کلیه موارد آن موافقم.</label>
+                        </div>
+                        <div class="form-account-row form-account-submit">
+                            <div class="parent-btn">
+                                <button class="dk-btn dk-btn-info">
+                                    ثبت نام در {{ $setting['sname'] }}
+                                    <i class="now-ui-icons users_circle-08"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="account-box-footer">
+                    <span>قبلا در {{ $setting['sname'] }} ثبت‌نام کرده‌اید؟</span>
+                    <a href="{{route('login')}}" class="btn-link-border">وارد شوید</a>
+                </div>
+            </div>
         </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('ایمیل')" />
-            <x-text-input id="email" class="block mt-1 w-full text-end" type="email" name="email" :value="old('email')" required autocomplete="none" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('رمز عبور')" />
-
-            <x-text-input id="password" class="block mt-1 w-full text-end"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('تکرار رمز عبور')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full text-end"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-        <div class="mt-4">
-            <x-input-label for="address" :value="__('آدرس')" />
-
-            <x-text-input id="address" class="block mt-1 w-full text-end"
-                            type="text"
-                            name="address" required  />
-
-            <x-input-error :messages="$errors->get('address')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('قبلا ثبت نام کرده اید؟') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('ثبت نام') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>
+</div>
+@endforeach
+    @endsection

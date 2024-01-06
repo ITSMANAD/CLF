@@ -44,6 +44,7 @@
 
                                 <th>تصویر شاخص</th>
                                 <th>عنوان</th>
+                                <th>تاریخ انتشار</th>
                                 <th>وضعیت</th>
                                 <th>عملیات</th>
                             </tr>
@@ -70,16 +71,30 @@
                                     </div>
                                 </td>
                                 <td>
+                                    <div class="flex items-center gap-3">
+
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">{{jdate($Post->created_at)->ago()}}</div>
+                                    </div>
+                                    </div>
+                                </td>
+                                <td>
                                     @if($Post->status == 1)
                                         <span class="badge badge-success">فعال</span>
                                     @endif
                                     @if($Post->status == 0)
-                                            <span class="badge badge-danger">غیر</span>
+                                            <span class="badge badge-error">غیر فعال</span>
                                     @endif
                                 </td>
                                 <th>
-                                    <button class="btn btn-error btn-xs">حذف</button>
-                                    <button class="btn btn-warning btn-xs">ویرایش</button>
+                                    <form action="{{route('BlogDeletePost')}}" class="mb-1" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <input type="hidden" name="id" value="{{$Post->id}}">
+                                        <button class="btn btn-error btn-xs">حذف</button>
+                                    </form>
+                                    <a href="posts/edit/{{$Post->id}}" class="btn btn-warning btn-xs">ویرایش</a>
                                 </th>
                             </tr>
                     @endforeach
@@ -90,6 +105,7 @@
                             <tr>
                                 <th>تصویر شاخص</th>
                                 <th>عنوان</th>
+                                <th>تاریخ انتشار</th>
                                 <th>وضعیت</th>
                                 <th>عملیات</th>
                             </tr>

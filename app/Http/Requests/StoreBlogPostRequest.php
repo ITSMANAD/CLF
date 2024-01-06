@@ -25,6 +25,7 @@ class StoreBlogPostRequest extends FormRequest
             'tags' => 'required|string',
             'category' => 'required|string',
             'thumbnail' => 'required|file',
+            'description' => 'required|string|max:450',
         ];
     }
 
@@ -38,6 +39,9 @@ class StoreBlogPostRequest extends FormRequest
             'tags.required' => 'تگ ها الزامی است.',
             'category.required' => 'انتخاب دسته بندی الزامی است.',
             'thumbnail.required' => 'انتخاب تصویر نمایه الزامی است.',
+            'description.required' => ' توضیحات کوتاه الزامی است.',
+            'slug.unique' => 'آدرس انتخاب شده از قبل وجود دارد!',
+            'description.max:200' => 'حداکثر تعداد کاراکتر مجاز 200 میباشد'
             // ...
         ];
     }

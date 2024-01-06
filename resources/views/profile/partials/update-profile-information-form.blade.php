@@ -20,7 +20,21 @@
             <x-text-input id="name" name="name" type="text" class="input-field text-end" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
-
+        <div>
+            <x-input-label for="address" :value="__('آدرس دقیق')" />
+            <x-text-input id="address" name="address" type="text" class="input-field text-end" :value="old('name', $user->address)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('address')" />
+        </div>
+        <div>
+            <x-input-label for="postalcode" :value="__('کد پستی')" />
+            <x-text-input id="postalcode" name="postalcode" type="text" class="input-field text-end" :value="old('name', $user->postalcode)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('postalcode')" />
+        </div>
+        <div>
+            <x-input-label for="phone" :value="__('شماره همراه')" />
+            <x-text-input id="phone" name="phone" type="text" class="input-field text-end" :value="old('name', $user->phone)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        </div>
         <div>
             <x-input-label for="email" :value="__('ایمیل')" />
             <x-text-input id="email" name="email" type="email" class="input-field text-end" :value="old('email', $user->email)" required autocomplete="username" />

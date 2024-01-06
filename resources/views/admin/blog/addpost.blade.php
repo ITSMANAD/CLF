@@ -25,9 +25,9 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-9 mx-auto">
+                    <div class=" ">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body ">
                                 <div class="row">
                                     <div class="col-md-3 border-0">
                                         <h4>مطلب جدید</h4>
@@ -40,15 +40,14 @@
                                         <span>
 
 
-                                                    <li id="alert_text"></li>
+                                                    <p id="alert_text"></p>
 
                                             </span>
                                     </div>
 
-                                <div class="row">
+                                <div class="row mx-auto">
                                     <div class="col-md-8">
-                                        <form  action="{{route('BlogNewPostSubmit')}}" method="post">
-                                            @method('patch')
+                                        <form id="form">
                                             @csrf
                                             <div class="form-group row">
                                                 <label for="text" class="col-12 col-form-label">موضوع را وارد کنید</label>
@@ -63,6 +62,14 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+                                                <label for="description" class="col-12 col-form-label">  توضیحات کوتاه را وارد کنید</label>
+                                                <div class="col-12">
+                                                    <textarea id="description" name="description" placeholder="توضیحات کوتاه در مورد نوشته" class="form-control here" required="required"   >
+
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label for="text" class="col-12 col-form-label">کلمه کلیدی پرتکرار برای سئو وارد کنید!</label>
                                                 <div class="col-12">
                                                     <input id="text" name="tags" placeholder="مانند : لاراول" class="form-control here" required="required" type="text">
@@ -72,9 +79,7 @@
                                                 <label for="textarea" class="col-12 col-form-label">محتوای پست</label>
                                                 <div class="col-12">
 
-                                                <textarea name="text" id="editor1" rows="10" cols="80">
-
-                                                </textarea>
+                                                <input name="text" id="editor1" rows="10" cols="80">
                                                     <script>
                                                         // Replace the <textarea id="editor1"> with a CKEditor 4
                                                         // instance, using default configuration.
@@ -84,15 +89,27 @@
                                             </div>
 
                                     </div>
-                                    <div class="col-md-4  ">
+                                    <div class="col-md-4">
                                         <div class="card border-1 shadow-md mb-3" style="max-width: 18rem;">
                                             <div class="card-header border-0 bg-white ">انتشار</div>
                                             <div class="card-body">
 
+                                                <div class="form-group row">
+                                                    <label for="status" class="col-12 col-form-label">انتخاب وضعیت انتشار</label>
+                                                    <div class="">
+                                                        <select id="status" name="status"  class="select select-bordered w-full max-w-xs" required="required">
+                                                            <option selected disabled>وضعیت انتشار را انتخاب کنید</option>
+                                                            <option value="0">غیر فعال</option>
+                                                            <option value="1">فعال</option>
+
+
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="card-footer border-0 bg-white">
 
-                                                <button type="submit" class="btn btn-warning btn-sm">انتشار  به عنوان پیش نویس</button>
+                                                <button type="button" onclick="submitForm()" class="btn btn-success btn-sm">انتشار نوشته</button>
                                             </div>
                                         </div>
                                         <div class="card border-1 mb-3" style="max-width: 18rem;">
@@ -138,4 +155,5 @@
         </div>
         <!-- /.content -->
     </div>
+        <script src="/js/ax-post.js"></script>
 @endsection

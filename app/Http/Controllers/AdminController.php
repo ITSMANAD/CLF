@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GeneralUpdateR;
 use App\Http\Requests\StoreBlogPostRequest;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\user_edit_request;
+use App\Http\Requests\UpdateBlogPostRequest;
 use App\Models\Banners;
 use App\Models\BlogCategory;
 use App\Models\BlogPosts;
@@ -14,6 +16,7 @@ use App\Models\MegaCategory;
 use App\Models\Settings;
 use App\Models\SubCategory;
 use App\Models\User;
+use Dotenv\Util\Str;
 use Hamcrest\Core\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -132,7 +135,7 @@ class AdminController extends Controller
     {
         $BlogSubCategory = BlogSubCategory::all()->find($id);
         if (is_null($BlogSubCategory)){
-            return \redirect(route('BlogCategory'))->with('error','این مقدار در دستابیس وجود ندارد!');
+            return \redirect(route('BlogCategory'))->with('error','این مقدار در دیتابیس وجود ندارد!');
         }else{
             $blogcategories = BlogCategory::all();
 
@@ -143,7 +146,7 @@ class AdminController extends Controller
 
     function BlogPosts()
     {
-        $BlogPosts = BlogPosts::all();
+        $BlogPosts = BlogPosts::all()->sortByDesc('created_at');
         return view('admin.blog.blogposts',compact('BlogPosts'));
     }
 
@@ -156,6 +159,16 @@ class AdminController extends Controller
     function BlogNewPost()
     {
         return view('admin.blog.addpost');
+    }
+
+    function BlogEditPost($id)
+    {
+        $BlogPost = BlogPosts::all()->find($id);
+        if (is_null($BlogPost)){
+            return back()->with('error','این مقدار در دیتابیس وجود ندارد!');
+        }else{
+            return view('admin.blog.editpost',compact('BlogPost'));
+        }
     }
     // ------------------
     function GeneralUpdate(Request $request)
@@ -244,7 +257,7 @@ class AdminController extends Controller
         $megacategories->delete();
         return back()->with('success','عملیات با موفقیت انجام شد!');
     }
-    function CategoryAddOne(Request $request)
+    function CategoryAddOne(StoreCategoryRequest $request)
     {
         $categories = new Category;
 
@@ -255,12 +268,8 @@ class AdminController extends Controller
         $categories->status =  $request->input('status');
         $categories->logo =  "#";
         $categorycheck = Category::all()->whereIn('slug',$request->input('slug'));
-        if ($categorycheck->count() > 0){
-            return back()->with('error','لینک تکراری است!');
-        }else{
-            $categories->save();
-            return \redirect(route('CategorySettings'));
-        }
+        $categories->save();
+
     }
     function CategoryAddSubOne(Request $request)
     {
@@ -302,7 +311,7 @@ class AdminController extends Controller
         }
 
     }
-    function CategoryUpdateOne(Request $request)
+    function CategoryUpdateOne(StoreCategoryRequest $request)
     {
         $id = $request->input('id');
         $categories = Category::all()->find($id);
@@ -313,7 +322,6 @@ class AdminController extends Controller
         $categories->status =  $request->input('status');
         $categories->logo =  "#";
         $categories->update();
-        return \redirect(route('CategorySettings'));
     }
     function SubCategoryUpdateOne(Request $request)
     {
@@ -415,7 +423,8 @@ class AdminController extends Controller
         $id = $request->input('id');
         $BlogCategory = BlogCategory::all()->find($id);
         $BlogCategory->name = $request->input('name');
-        $BlogCategory->slug = $request->input('slug');
+        $slug = \Illuminate\Support\Str::slug($request->input('slug'),'-');
+        $BlogCategory->slug = $slug;
         $BlogCategory->tags = $request->input('tags');
 
         if ($BlogCategory->update()){
@@ -512,17 +521,54 @@ class AdminController extends Controller
             $BlogPosts->thumbnail = "/img/".$filenameone;
             $BlogPosts->title = $request->input('title');
             $BlogPosts->text = $request->input('text');
-            $BlogPosts->slug = $request->input('slug');
+            $slug = \Illuminate\Support\Str::slug($request->input('slug'),'-');
+            $BlogPosts->slug = $slug;
+            $BlogPosts->description = $request->input('description');
             $BlogPosts->tags = $request->input('tags');
             $BlogPosts->category = $request->input('category');
             $BlogPosts->subcategory = 0;
             $BlogPosts->auther = auth()->user()->id;
-            $BlogPosts->status = 0;
+            $BlogPosts->status = $request->input('status');
             $BlogPosts->save();
+    }
 
+    function BlogDeletePost(Request $request)
+    {
+        $id = $request->input('id');
+        $BlogPosts = BlogPosts::all()->find($id);
+        if (!is_null($BlogPosts) > 0){
+            $BlogPosts->delete();
             return \redirect(route('BlogPosts'))->with('success','عملیات با موفقیت انجام شد!');
+        }else{
+            return \redirect(route('BlogPosts'))->with('error','عملیات با خطا مواجه شد!');
+        }
+    }
 
-
+    function BlogEditPostSubmit(UpdateBlogPostRequest $request)
+    {
+        $id = $request->input('id');
+        $BlogPosts = BlogPosts::all()->find($id);
+        if ($request->hasFile('thumbnail')){
+            $destination= base_path().'/public/img/';
+            if(!is_dir($destination))
+            {
+                mkdir($destination,0777,true);
+            }
+            $destination=$destination.'/';
+            $file=$request->file('thumbnail');
+            $filenameone = $file->getFilename().rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
+            $file->move($destination,$filenameone);
+            $BlogPosts->thumbnail = "/img/".$filenameone;
+        }
+        $BlogPosts->title = $request->input('title');
+        $BlogPosts->text = $request->input('text');
+        $BlogPosts->tags = $request->input('tags');
+        $BlogPosts->category = $request->input('category');
+        $BlogPosts->description = $request->input('description');
+        $BlogPosts->subcategory = 0;
+        $BlogPosts->auther = auth()->user()->id;
+        $BlogPosts->status = $request->input('status');
+        $BlogPosts->update();
     }
 }
 

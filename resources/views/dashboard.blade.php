@@ -31,7 +31,13 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <p>
                                                     <span class="title">شماره تلفن همراه:</span>
-                                                    <span>-</span>
+                                                    <span>{{Auth::user()->phone}}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <p>
+                                                    <span class="title">محل سکونت:</span>
+                                                    <span>{{Auth::user()->address}}</span>
                                                 </p>
                                             </div>
                                             <div class="col-12 text-center">

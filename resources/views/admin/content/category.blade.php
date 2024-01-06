@@ -42,16 +42,10 @@
                             <div class="card-header">
                                 <h3 class="card-title">دسته بندی ها</h3>
 
-                                <div class="card-tools ">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="جستجو">
-
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <a href="{{route('CategoryAdd')}}" class="btn btn-success "><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                        </div>
+                                <div class="card-tools">
+                                    <div class="join">
+                                        <input type="text" placeholder="جست و جو کنید" class="input input-bordered input-sm w-75 max-w-sm join-item " />
+                                        <a href="{{route('CategoryAdd')}}" class="btn btn-success btn-sm join-item text-light fs-4">+</a>
                                     </div>
 
 
@@ -79,11 +73,9 @@
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-sm">
-                                                        <a href="/admin/categories/edit/{{$Category['id']}}" class="btn btn-outline-warning">ویرایش دسته بندی</a>
-                                                    </div>
-                                                    <div class="col-sm">
+                                                        <a href="/admin/categories/edit/{{$Category['id']}}" class="btn btn-warning btn-sm mb-2">ویرایش دسته بندی</a>
                                                         <form method="post" class="" action="categories/delete">
-                                                            <button type="submit" class="btn btn-outline-danger">حذف دسته بندی</button>
+                                                            <button type="submit" class="btn btn-error btn-sm">حذف دسته بندی</button>
                                                             @csrf
                                                             @method('patch')
                                                             <input type="hidden" name="id" value="{{$Category['id']}}">
@@ -105,19 +97,11 @@
                             <div class="card-header">
                                 <h3 class="card-title">ساب منو (زیر دسته بندی)</h3>
 
-                                <div class="card-tools ">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="جستجو">
-
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <a href="{{route('CategorySubAdd')}}" class="btn btn-success "><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                        </div>
+                                <div class="card-tools">
+                                    <div class="join">
+                                        <input type="text" placeholder="جست و جو کنید" class="input input-bordered input-sm w-75 max-w-sm join-item " />
+                                        <a href="{{route('CategorySubAdd')}}" class="btn btn-success btn-sm join-item text-light fs-4">+</a>
                                     </div>
-
-
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -153,11 +137,11 @@
                                                     <div class="container">
                                                         <div class="row">
                                                             <div class="col-sm">
-                                                                <a href="/admin/categories/edit/sub/{{$Category['id']}}" class="btn btn-outline-warning">ویرایش دسته بندی</a>
+                                                                <a href="/admin/categories/edit/sub/{{$Category['id']}}" class="btn btn-warning btn-sm">ویرایش دسته بندی</a>
                                                             </div>
                                                             <div class="col-sm">
                                                                 <form method="post" class="" action="categories/delete/sub">
-                                                                    <button type="submit" class="btn btn-outline-danger">حذف دسته بندی</button>
+                                                                    <button type="submit" class="btn btn-error btn-sm">حذف دسته بندی</button>
                                                                     @csrf
                                                                     @method('patch')
                                                                     <input type="hidden" name="id" value="{{$Category['id']}}">
@@ -178,19 +162,11 @@
                             <div class="card-header">
                                 <h3 class="card-title"> مگا منو ها</h3>
 
-                                <div class="card-tools ">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="جستجو">
-
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <a href="{{route('CategoryMegaAdd')}}" class="btn btn-success "><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                        </div>
+                                <div class="card-tools">
+                                    <div class="join">
+                                        <input type="text" placeholder="جست و جو کنید" class="input input-bordered input-sm w-75 max-w-sm join-item " />
+                                        <a href="{{route('CategoryMegaAdd')}}" class="btn btn-success btn-sm join-item text-light fs-4">+</a>
                                     </div>
-
-
                                 </div>
                             </div>
                             <!-- /.card-header -->
