@@ -29,6 +29,7 @@
                 </div>
 
                 <br>
+
                 {{--        Big Slider        --}}
                <div class="card card-light border-0 shadow-sm">
                    <div class="card-header bg-white">

@@ -39,7 +39,7 @@ Route::controller(AdminController::class)->group(function () {
     Route::patch('/admin/settings', 'GeneralUpdate')->name('General.Update');
     Route::get('/admin/settings/home','HomeSettings')->name('HomeSettings');
     Route::get('/admin/settings/home/{id}','HomeSettingsEdit')->name('HomeSettingsEdit');
-    Route::patch('/admin/settings/home/','HomeSettingsSubmit')->name('HomeSettingsSubmit');
+    Route::post('/admin/settings/home/','HomeSettingsSubmit')->name('HomeSettingsSubmit');
     Route::get('/admin/categories','CategorySettings')->name('CategorySettings');
     Route::patch('/admin/categories/delete','CategoryDelete')->name('CategoryDelete');
     Route::patch('/admin/categories/delete/sub','CategorySubDelete')->name('CategorySubDelete');

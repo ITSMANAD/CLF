@@ -237,6 +237,22 @@
              }, 20000);
          });
  }
+ function bannereditform() {
+     var formData = new FormData(document.getElementById('banner-edit-form'));
+     axios.post('/admin/settings/home/', formData)
+         .then(function (response) {
+             window.location.pathname = "/admin/settings/home";
+
+         })
+         .catch(function (error) {
+             document.getElementById('alert').style.display = 'block';
+             var result = document.getElementById('alert_text');
+             result.innerHTML = translateErrors(error.response.data.errors);
+             setTimeout(function() {
+                 document.getElementById('alert').style.display = 'none';
+             }, 20000);
+         });
+ }
  function translateErrors(errors) {
      var translatedErrors = [];
      for (var field in errors) {

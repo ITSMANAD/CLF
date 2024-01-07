@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GeneralUpdateR;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UploadBannerImage;
 use App\Http\Requests\user_edit_request;
 use App\Http\Requests\UpdateBlogPostRequest;
 use App\Models\Banners;
@@ -196,12 +197,8 @@ class AdminController extends Controller
         return back()->with('success', 'عملیات با موفقیت انجام شد!');
     }
 
-    function HomeSettingsSubmit(Request $request){
+    function HomeSettingsSubmit(UploadBannerImage $request){
         //Upload Image
-        $this->validate($request,[
-            'bimage' => 'required|mimes:jpg,jpeg,png,gif|max:10240'
-        ]);
-
         $destination= base_path().'/public/img/';
         if(!is_dir($destination))
         {
@@ -209,17 +206,14 @@ class AdminController extends Controller
         }
         $destination=$destination.'/';
         $file=$request->file('bimage');
-        $filenameone =rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
+        $filenameone = rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
         $file->move($destination,$filenameone);
-
         $id = $request->input('id');
-        $banners = Banners::all()->find($id);
-        $banners->bname = $request->input('bname');
-        $banners->balt = $request->input('balt');
-        $banners->blocation = $request->input('blocation');
-        $banners->bimage = '/img/'.$filenameone;
-        $banners->update();
-        return back()->with('success', 'عملیات با موفقیت انجام شد!');
+        $banner = Banners::all()->find($id);
+        $banner->blink = $request->input('blink');
+        $banner->bname = $request->input('bname');
+        $banner->bimage = '/img/'.$filenameone;
+        $banner->update();
 
     }
 

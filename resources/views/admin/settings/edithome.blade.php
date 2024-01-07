@@ -41,14 +41,22 @@
                     <div class="card-header">
                         <h4 class="card-title">ویرایش بنر </h4>
                     </div>
+                    <div id="alert" style="display: none;" role="alert" class="alert alert-danger">
+                        <i class="stroke-current shrink-0 h-6 w-6 fa fa-exclamation-triangle"></i>
+                        <span>
 
+
+                                                    <p id="alert_text"></p>
+
+                                            </span>
+                    </div>
+                    <br>
                     <div id="main-card" class="card-content">
                         <div class="card-body">
                             <div class="col-12 col-md-10 offset-md-1">
                                 <img src="{{$Img->bimage}}" class="img-thumbnail w-50 h-50 m-4">
-                                <form method="post" class="form" id="banner-edit-form" action="{{route('HomeSettingsSubmit')}}">
+                                <form class="form" id="banner-edit-form">
                                     @csrf
-                                    @method('patch')
                                     <input type="hidden" name="id" id="" value="{{$Img->id}}">
                                             <div class="row">
                                             <div class="col-md-6">
@@ -92,7 +100,7 @@
 
                                         <div class="row">
                                             <div class="col-12 text-right">
-                                                <button type="submit" class="btn btn-success mr-1 mb-1">
+                                                <button type="button" onclick="bannereditform()" class="btn btn-success mr-1 mb-1">
                                                     ویرایش بنر
                                                 </button>
                                             </div>
