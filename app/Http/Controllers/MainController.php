@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOTP;
 use App\Models\Banners;
 use App\Models\BlogCategory;
 use App\Models\BlogPosts;
+use App\Models\codes;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 class MainController extends Controller
@@ -45,6 +49,29 @@ class MainController extends Controller
             return view('blog.category',compact('Category','Posts','AllPosts'));
         }catch (ModelNotFoundException $e){
             abort('404','مطلب مورد نظر پیدا نشد');
+        }
+    }
+
+    function OTP()
+    {
+        return view('OTP');
+    }
+
+    function StoreOTP(StoreOTP $request)
+    {
+        $one = $request->input('one');
+        $two = $request->input('two');
+        $three = $request->input('three');
+        $four = $request->input('four');
+        $Codes = codes::all()->whereIn('UserID', auth()->user()->id)->first();
+        if (is_null($Codes)){
+
+        }else{
+
+                $Codes->delete();
+                $User = User::where('id', auth()->user()->id)->update(['active' => 1]);
+                return redirect(route('dashboard'));
+
         }
     }
 }

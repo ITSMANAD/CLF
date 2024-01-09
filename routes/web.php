@@ -20,6 +20,7 @@ Route::controller(MainController::class)->group(function(){
     Route::get('/posts','blog')->name('Blog');
     Route::get('/posts/{slug}','blogpost')->name('BlogPost');
     Route::get('/posts/category/{slug}','blogcategory')->name('BlogCategory');
+
 });
 
 Route::get('/dashboard', function () {
@@ -31,6 +32,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/password', [ProfileController::class, 'editpassword'])->name('profile.editpass');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::controller(MainController::class)->group(function (){
+        Route::get('/OTP','OTP')->name('OTP');
+        Route::post('/OTP','StoreOTP')->name('StoreOTP');
+    });
+
 });
 Route::middleware('admin')->group(function () {
 Route::controller(AdminController::class)->group(function () {

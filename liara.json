@@ -1,0 +1,7 @@
+{
+    "platform": "laravel",
+    "app": "clf",
+    "laravel": {
+      "phpVersion": "8.2"
+    }
+  }
