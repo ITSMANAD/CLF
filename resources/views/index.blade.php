@@ -17,7 +17,7 @@
                 <!-- Start banner -->
                 <div class="sidebar-inner dt-sl">
                     <div class="sidebar-banner">
-                        <div class="row">
+                        <div class="row w-75 h-75">
                             @foreach($h2 as $banner)
                             <div class="col-12 mb-1">
                                 <div class="widget-banner">

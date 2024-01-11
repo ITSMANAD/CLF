@@ -63,15 +63,18 @@ class MainController extends Controller
         $two = $request->input('two');
         $three = $request->input('three');
         $four = $request->input('four');
+        $inputCode = $one.$two.$three.$four;
         $Codes = codes::all()->whereIn('UserID', auth()->user()->id)->first();
-        if (is_null($Codes)){
-
-        }else{
+        if (is_null($Codes) ){
+        return back()->with('error','کد نامعتبر است!');
+        }elseif($Codes->Code == $inputCode){
 
                 $Codes->delete();
                 $User = User::where('id', auth()->user()->id)->update(['active' => 1]);
                 return redirect(route('dashboard'));
 
+        }else{
+            return back()->with('error','کد نامعتبر است!');
         }
     }
 }

@@ -26,12 +26,10 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="container">
-                    @if(session('error'))
-                        <div class="alert alert-danger alert-dismissible">
+                        <div id="alert" class="alert alert-danger alert-dismissible" style="display: none">
                             <h5><i class="icon fa fa-ban"></i> خطا!</h5>
-                            {{ session('error') }}
+                           <p id="alert_text"></p>
                         </div>
-                    @endif
                 </div>
                 <div class="container">
                     <div class="card card-primary">
@@ -40,8 +38,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" action="{{route('CategoryAddSubOne')}}" role="form">
-                            @method('patch')
+                        <form method="post" id="CategorySubAdd">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -77,7 +74,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">ارسال</button>
+                                <button type="button" onclick="CategorySubAdd()" class="btn btn-primary">ارسال</button>
                             </div>
                         </form>
                     </div>

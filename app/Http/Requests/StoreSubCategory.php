@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class StoreSubCategory extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,18 +16,14 @@ class StoreCategoryRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
             'name' => 'required|string|max:255',
             'status' => 'required|string',
-            'text' => 'required|string',
-            'slug' => 'required|string|unique:categories,slug',
+            'category' => 'required|int',
+            'editor1' => 'required|string',
+            'slug' => 'required|string|unique:sub_categories,slug',
 
         ];
     }
@@ -37,8 +33,9 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'name.required' => 'عنوان الزامی است.',
-            'text.required' => 'توضیحات الزامی است.',
-            'slug.required' => 'آدرس نوشته الزامی است.',
+            'category.required' => 'دسته بندی مادر الزامی است.',
+            'editor1.required' => 'توضیحات الزامی است.',
+            'slug.required' => 'آدرس زیر دسته بندی الزامی است.',
             'status.required' => 'انتخاب وضعیت انتشار الزامی است.',
             'slug.unique' => 'آدرس انتخاب شده از قبل وجود دارد!',
             // ...

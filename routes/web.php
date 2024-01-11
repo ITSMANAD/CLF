@@ -52,7 +52,7 @@ Route::controller(AdminController::class)->group(function () {
     Route::patch('/admin/categories/delete/mega','CategoryMegaDelete')->name('CategoryMegaDelete');
     Route::get('/admin/categories/add','CategoryAdd')->name('CategoryAdd');
     Route::post('/admin/categories/add','CategoryAddOne')->name('CategoryAddOne');
-    Route::patch('/admin/categories/add/sub','CategoryAddSubOne')->name('CategoryAddSubOne');
+    Route::post('/admin/categories/add/sub','CategoryAddSubOne')->name('CategoryAddSubOne');
     Route::get('/admin/categories/add/sub','CategorySubAdd')->name('CategorySubAdd');
     Route::get('/admin/categories/add/mega','CategoryMegaAdd')->name('CategoryMegaAdd');
     Route::patch('/admin/categories/add/mega','CategoryAddMegaOne')->name('CategoryAddMegaOne');

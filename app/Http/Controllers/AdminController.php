@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GeneralUpdateR;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\StoreSubCategory;
 use App\Http\Requests\UploadBannerImage;
 use App\Http\Requests\user_edit_request;
 use App\Http\Requests\UpdateBlogPostRequest;
@@ -265,7 +266,7 @@ class AdminController extends Controller
         $categories->save();
 
     }
-    function CategoryAddSubOne(Request $request)
+    function CategoryAddSubOne(StoreSubCategory $request)
     {
         $subcategory = new SubCategory;
         //add
@@ -276,12 +277,7 @@ class AdminController extends Controller
         $subcategory->category =  $request->input('category');
         $subcategory->logo =  "#";
         $subcategorycheck = SubCategory::all()->whereIn('slug',$request->input('slug'));
-        if ($subcategorycheck->count() > 0){
-            return back()->with('error','لینک تکراری است!');
-        }else{
-            $subcategory->save();
-            return \redirect(route('CategorySettings'));
-        }
+        $subcategory->save();
 
     }
 

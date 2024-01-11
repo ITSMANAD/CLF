@@ -207,6 +207,8 @@
 
  function SubmitAddCategory() {
      var formData = new FormData(document.getElementById('SubmitAddCategory'));
+     var editorValue = CKEDITOR.instances.editor1.getData();
+     formData.append('text', editorValue);
      axios.post('/admin/categories/add', formData)
          .then(function (response) {
              window.location.pathname = "/admin/categories";
@@ -223,6 +225,8 @@
  }
  function CategoryUpdateOne() {
      var formData = new FormData(document.getElementById('CategoryUpdateOne'));
+     var editorValue = CKEDITOR.instances.editor1.getData();
+     formData.append('text', editorValue);
      axios.post('/admin/categories/edit', formData)
          .then(function (response) {
              window.location.pathname = "/admin/categories";
@@ -239,9 +243,29 @@
  }
  function bannereditform() {
      var formData = new FormData(document.getElementById('banner-edit-form'));
+     var editorValue = CKEDITOR.instances.editor1.getData();
+     formData.append('text', editorValue);
      axios.post('/admin/settings/home/', formData)
          .then(function (response) {
              window.location.pathname = "/admin/settings/home";
+
+         })
+         .catch(function (error) {
+             document.getElementById('alert').style.display = 'block';
+             var result = document.getElementById('alert_text');
+             result.innerHTML = translateErrors(error.response.data.errors);
+             setTimeout(function() {
+                 document.getElementById('alert').style.display = 'none';
+             }, 20000);
+         });
+ }
+ function CategorySubAdd() {
+     var formData = new FormData(document.getElementById('CategorySubAdd'));
+     var editorValue = CKEDITOR.instances.editor1.getData();
+     formData.append('text', editorValue);
+     axios.post('/admin/categories/add/sub', formData)
+         .then(function (response) {
+             window.location.pathname = "/admin/categories/";
 
          })
          .catch(function (error) {

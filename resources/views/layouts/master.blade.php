@@ -311,10 +311,12 @@
                             <div class="dropdown-item">
 
                                 <div class="d-grid gap-2">
-
-                                    <a href="{{route('logout')}}">
+                                    <form action="{{route('logout')}}">
+                                        @method('patch')
+                                    <button class="btn btn-link fs-6 text-decoration-none">
                                         <i class="fa fa-sign-out fs-5"></i>
-                                        خروج از حساب</a>
+                                        خروج از حساب</button>
+                                    </form>
                                 </div>
                             </div>
                         </ul>
@@ -323,7 +325,7 @@
 
                     @else
                     <div class="user-login dropdown">
-                        <a href=#/ class="btn btn-neutral dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink1">
+                        <a href="#/" class="btn btn-neutral dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink1">
                             ورود / ثبت نام
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">

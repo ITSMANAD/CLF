@@ -57,7 +57,8 @@
                                 <div class="form-group">
                                     <label for="descriptioninput">توضیحات سئو دسته بندی</label>
                                     <div class="mb-3">
-                                        <input name="text" id="editor1" rows="10" cols="80">
+                                        <textarea name="editor1" id="editor1" rows="10" cols="80">
+                                            </textarea>
                                         <script>
                                             CKEDITOR.replace('editor1');
                                             </script>
