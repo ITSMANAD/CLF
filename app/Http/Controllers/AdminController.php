@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GeneralUpdateR;
+use App\Http\Requests\ShopSettingsStoreRequest;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\StoreSubCategory;
@@ -16,6 +17,7 @@ use App\Models\BlogSubCategory;
 use App\Models\Category;
 use App\Models\MegaCategory;
 use App\Models\Settings;
+use App\Models\ShopSettings;
 use App\Models\SubCategory;
 use App\Models\User;
 use Dotenv\Util\Str;
@@ -41,7 +43,7 @@ class AdminController extends Controller
         $h2 = Banners::all()->whereIn('blocation','h2');
         $h3 = Banners::all()->whereIn('blocation','h3');
         $h4 = Banners::all()->whereIn('blocation','h4');
-        return view('admin.settings.home',compact('h1','h2','h3','h4'));
+            return view('admin.settings. ',compact('h1','h2','h3','h4'));
     }
     function CategorySettings(){
         $categories = Category::all();
@@ -170,6 +172,16 @@ class AdminController extends Controller
             return back()->with('error','این مقدار در دیتابیس وجود ندارد!');
         }else{
             return view('admin.blog.editpost',compact('BlogPost'));
+        }
+    }
+
+    function ShopSettings()
+    {
+        $ShopSettings = ShopSettings::all()->first();
+        if (is_null($ShopSettings)){
+            return view('admin.content.ShopSettings');
+        }else{
+            return view('admin.content.ShopSettings',compact('ShopSettings'));
         }
     }
     // ------------------
@@ -559,6 +571,15 @@ class AdminController extends Controller
         $BlogPosts->auther = auth()->user()->id;
         $BlogPosts->status = $request->input('status');
         $BlogPosts->update();
+    }
+
+    function ShopSettingsStore(ShopSettingsStoreRequest $request)
+    {
+        $ShopSettings = ShopSettings::all()->first();
+        $ShopSettings->Currency = $request->input('currency');
+        $ShopSettings->Ftitle = $request->input('title');
+        $ShopSettings->Fseller = $request->input('Seller');
+            $ShopSettings->update();
     }
 }
 

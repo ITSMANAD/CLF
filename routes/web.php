@@ -21,6 +21,7 @@ Route::controller(MainController::class)->group(function(){
     Route::get('/posts/{slug}','blogpost')->name('BlogPost');
     Route::get('/posts/category/{slug}','blogcategory')->name('BlogCategory');
 
+
 });
 
 Route::get('/dashboard', function () {
@@ -94,7 +95,10 @@ Route::controller(AdminController::class)->group(function () {
         Route::post('/admin/blog/posts/edit','BlogEditPostSubmit')->name('BlogEditPostSubmit');
         Route::post('/admin/blog/posts/new','BlogNewPostSubmit')->name('BlogNewPostSubmit');
         Route::put('/admin/blog/posts/delete','BlogDeletePost')->name('BlogDeletePost');
-
+    // Shop
+        //Settings
+        Route::get('/admin/shop/settings','ShopSettings')->name('ShopSettings');
+        Route::post('/admin/shop/settings','ShopSettingsStore')->name('ShopSettingsStore');
 
 
 

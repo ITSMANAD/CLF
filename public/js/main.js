@@ -277,6 +277,25 @@
              }, 20000);
          });
  }
+ function ShopSettings() {
+     var formData = new FormData(document.getElementById('ShopSettings'));
+     axios.post('/admin/shop/settings', formData)
+         .then(function (response) {
+             document.getElementById('success').style.display = 'block';
+             setTimeout(function() {
+                 document.getElementById('alert').style.display = 'none';
+             }, 20000);
+
+         })
+         .catch(function (error) {
+             document.getElementById('alert').style.display = 'block';
+             var result = document.getElementById('alert_text');
+             result.innerHTML = translateErrors(error.response.data.errors);
+             setTimeout(function() {
+                 document.getElementById('alert').style.display = 'none';
+             }, 20000);
+         });
+ }
  function translateErrors(errors) {
      var translatedErrors = [];
      for (var field in errors) {

@@ -111,6 +111,12 @@
                                     <p>دسته بندی ها</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{route('ShopSettings')}}" class="nav-link @if(request()->is('admin/shop/settings')) active @endif">
+                                    <i class="fa fa-cog nav-icon"></i>
+                                    <p>تنظیمات فروشگاه</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item has-treeview ">
