@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Banners;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Settings;
@@ -25,9 +27,18 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('*', function ($view) {
-            $setting = Settings::all();
-            $view->with('Settings', compact('setting'));
-        });
+        try {
+            DB::connection()->getPdo();
+            if (DB::connection()->getDatabaseName()) {
+                if (DB::connection()->table('settings')->exists()){
+                    View::composer('*', function ($view) {
+                        $setting = Settings::all();
+                        $view->with('Settings', compact('setting'));
+                    });
+                }
+            }
+        } catch (\Exception $e) {
+
+        }
     }
 }

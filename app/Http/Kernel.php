@@ -4,6 +4,7 @@ namespace App\Http;
 
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\installcheck;
 use App\Http\Middleware\OTPcheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -35,6 +36,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+            installcheck::class,
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,

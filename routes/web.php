@@ -20,7 +20,8 @@ Route::controller(MainController::class)->group(function(){
     Route::get('/posts','blog')->name('Blog');
     Route::get('/posts/{slug}','blogpost')->name('BlogPost');
     Route::get('/posts/category/{slug}','blogcategory')->name('BlogCategory');
-
+    Route::get('/installation','installation')->name('installation');
+    Route::post('/installation/env','installation_env')->name('installation_env');
 
 });
 
