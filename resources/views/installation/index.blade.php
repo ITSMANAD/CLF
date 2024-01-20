@@ -15,8 +15,18 @@
         if (\Illuminate\Support\Facades\DB::connection()->getDatabaseName()) {
     @endphp
     <div class="container">
-
-
+        @if($errors->any())
+            <div class="alert alert-danger mt-5">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+            <div class="alert alert-success mt-3" role="alert">
+                ارتباط با دیتابیس برقرار است!
+            </div>
         <div class="row gutters-sm mt-4">
             <div class="col-md-4 d-none d-md-block">
                 <div class="card">
@@ -48,7 +58,9 @@
                         <div class="tab-pane active" id="Settings">
                             <h6>تنظیمات اولیه وبسایت</h6>
                             <hr>
-                            <form method="post">
+                            <form method="post" enctype="multipart/form-data" action="{{route('installation_shop')}}">
+                                @csrf
+                                @method('patch')
                                 <div class="form-group">
                                     <label for="sitename">نام وبسایت</label>
                                     <input type="text" name="sitename" required class="form-control" id="sitename" placeholder="">
@@ -59,28 +71,27 @@
                                 </div>
                                 <div class="form-group mt-1 mb-2">
                                     <label for="sitelogo">لوگو سایت</label>
-                                    <input type="file" name="sitelogo" required class="form-control" id="sitelogo" >
+                                        <input type="file" accept=".jpeg,.png,.jpg,.gif" name="sitelogo" required class="form-control" id="sitelogo" >
                                 </div>
                                 <hr>
                                 <h6>تنظیمات فروشگاه</h6>
                                 <hr>
-                                <label for="select">کاربری وبسایت</label>
+                                <label for="select" class="label fw-bold">کاربری وبسایت</label>
                                 <div id="select">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">فروشگاه فایل</label>
+                                    <select class="form-select form-select-lg mb-3" name="shoptype" aria-label="Large select example">
+                                        <option selected>انتخاب کنید</option>
+                                        <option value="1">فروشگاه محصولات فیزیکی</option>
+                                        <option value="2">فروشگاه فایل</option>
+                                        <option value="3">فروشگاه ارائه خدمات</option>
+                                    </select>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">فروشگاه محصولات فیزیکی</label>
+                                <div class="form-group mt-1 mb-2">
+                                    <label for="sitesubject" class="label fw-bold">موضوع فعالیت سایت</label>
+                                    <input type="text" name="sitesubject" required class="form-control" id="sitesubject" >
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                    <label class="form-check-label" for="inlineRadio3">فروشگاه ارائه خدمات</label>
-                                </div>
-                                </div>
+
                                 <br>
-                                <button type="button" class="btn btn-primary">ویرایش تنظیمات اولیه</button>
+                                <button type="submit" class="btn btn-primary">ویرایش تنظیمات اولیه</button>
                                 <button type="reset" class="btn btn-light">ریست کردن فرم</button>
                             </form>
                         </div>
@@ -94,7 +105,11 @@
     }else {
     @endphp
     <div class="container">
-
+        <div class="alert alert-danger mt-5">
+            <ul>
+                ارتباط با دیتابیس برقرار نیست!
+            </ul>
+        </div>
 
         <div class="row gutters-sm mt-4">
             <div class="col-md-4 d-none d-md-block">
@@ -170,7 +185,9 @@
     } catch (\Exception $e) {
     @endphp
     <div class="container">
-
+        <div class="alert alert-danger mt-3" role="alert">
+            ارتباط با دیتابیس برقرار نیست!
+        </div>
         <div class="row gutters-sm mt-4">
             <div class="col-md-4 d-none d-md-block">
                 <div class="card">

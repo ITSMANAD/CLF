@@ -9,7 +9,7 @@
         <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
             <div class="account-box">
                 <a href="#" class="logo">
-                    <img src="assets/img/logo.png" alt="">
+                    <img src="{{$setting->slogo}}" alt="">
                 </a>
                 @if($errors->any())
                     <div class="alert alert-danger">
@@ -18,6 +18,12 @@
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
+                    </div>
+                @endif
+                @if(count(\App\Models\User::all()) > 0)
+                @else
+                    <div class="alert alert-warning fw-bold fs-6">
+                        اولین یوزر به حالت ادمین فعال میشود!
                     </div>
                 @endif
                 <div class="account-box-title">ثبت‌نام در {{ $setting['sname'] }} </div>

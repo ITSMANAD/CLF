@@ -13,6 +13,15 @@
                             <a href="#" class="logo">
                                 <img src="{{ $setting['slogo'] }}" alt="">
                             </a>
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="account-box-title text-right">ورود به {{ $setting['sname'] }}</div>
                             <div class="account-box-content">
                                 <form class="form-account">

@@ -111,6 +111,30 @@
                                     <p>دسته بندی ها</p>
                                 </a>
                             </li>
+                            <li class="nav-item has-treeview ">
+                                <a href="#" class="nav-link @if(request()->is('admin/shop/attributeGroups')) active @endif @if(request()->is('admin/shop/attributeGroups/add')) active @endif @if(request()->is('admin/shop/attributeGroups/attribute')) active @endif">
+                                    <i class="nav-icon fa fa-paperclip"></i>
+                                    <p>
+                                        ویژگی ها
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item">
+                                        <a href="{{route('ShopAttributeGroups')}}" class="nav-link @if(request()->is('admin/shop/attributeGroups')) active @endif @if(request()->is('admin/shop/attributeGroups/add')) active @endif">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>لیست گروه ویژگی ها</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{route('ShopAttributeAdd')}}" class="nav-link @if(request()->is('admin/shop/attributeGroups/attribute')) active @endif">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>ایجاد ویژگی</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item">
                                 <a href="{{route('ShopSettings')}}" class="nav-link @if(request()->is('admin/shop/settings')) active @endif">
                                     <i class="fa fa-cog nav-icon"></i>

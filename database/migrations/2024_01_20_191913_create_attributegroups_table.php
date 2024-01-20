@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('shop_settings', function (Blueprint $table) {
+        Schema::create('attributegroups', function (Blueprint $table) {
             $table->id();
-            $table->string('Currency');
-            $table->string('Ftitle');
-            $table->string('Fseller');
-            $table->string('Type');
-            $table->string('Title');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_settings');
+        Schema::dropIfExists('attributegroups');
     }
 };

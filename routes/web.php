@@ -21,6 +21,7 @@ Route::controller(MainController::class)->group(function(){
     Route::get('/posts/{slug}','blogpost')->name('BlogPost');
     Route::get('/posts/category/{slug}','blogcategory')->name('BlogCategory');
     Route::get('/installation','installation')->name('installation');
+    Route::patch('/installation/shop','installation_shop')->name('installation_shop');
     Route::post('/installation/env','installation_env')->name('installation_env');
 
 });
@@ -100,7 +101,15 @@ Route::controller(AdminController::class)->group(function () {
         //Settings
         Route::get('/admin/shop/settings','ShopSettings')->name('ShopSettings');
         Route::post('/admin/shop/settings','ShopSettingsStore')->name('ShopSettingsStore');
-
+        //Attributes
+        Route::get('/admin/shop/attributeGroups','ShopAttributeGroups')->name('ShopAttributeGroups');
+        Route::put('/admin/shop/attributeGroups/delete','ShopAttributeGroupsDelete')->name('ShopAttributeGroupsDelete');
+        Route::get('/admin/shop/attributeGroups/add','ShopAttributeGroupsAdd')->name('ShopAttributeGroupsAdd');
+        Route::get('/admin/shop/attributeGroups/edit/{id}','ShopAttributeGroupsEdit')->name('ShopAttributeGroupsEdit');
+        Route::patch('/admin/shop/attributeGroups/edit','ShopAttributeGroupsEditStore')->name('ShopAttributeGroupsEditStore');
+        Route::patch('/admin/shop/attributeGroups/add','ShopAttributeGroupsAddStore')->name('ShopAttributeGroupsAddStore');
+        Route::get('/admin/shop/attributeGroups/attribute','ShopAttributeAdd')->name('ShopAttributeAdd');
+        Route::patch('/admin/shop/attributeGroups/attribute','ShopAttributeAddStore')->name('ShopAttributeAddStore');
 
 
 });

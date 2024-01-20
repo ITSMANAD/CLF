@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShopSetupRequest;
 use App\Http\Requests\StoreOTP;
 use App\Models\Banners;
 use App\Models\BlogCategory;
 use App\Models\BlogPosts;
 use App\Models\codes;
+use App\Models\Settings;
+use App\Models\ShopSettings;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -143,5 +146,36 @@ class MainController extends Controller
         if($env_update){
             return back()->with('success','ذخیره انجام شد!');
         }
+    }
+
+    function installation_shop(ShopSetupRequest $request)
+    {
+
+        $Settings = new Settings();
+        $SettingsCheck = Settings::all()->whereIn('id','1');
+        $Settings->sname = $request->input('sitename');
+        $Settings->sdescription = $request->input('sitedesceiption');
+        if ($request->hasFile('sitelogo')){
+            $destination= base_path().'/public/img/';
+            if(!is_dir($destination))
+            {
+                mkdir($destination,0777,true);
+            }
+            $destination=$destination.'/';
+            $file=$request->file('sitelogo');
+            $filenameone = $file->getClientOriginalName().rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
+            $file->move($destination,$filenameone);
+        }
+        $Settings->slogo = "/img/".$filenameone;
+        $Settings->save();
+        $ShopSettings = new ShopSettings();
+        $ShopSettingsCheck = ShopSettings::all()->whereIn('id','1');
+        $ShopSettings->Type = $request->input('shoptype');
+        $ShopSettings->Title = $request->input('sitesubject');
+        $ShopSettings->Currency = "Toman";
+        $ShopSettings->Ftitle = $request->input('sitename');
+        $ShopSettings->Fseller = $request->input('sitename');
+        $ShopSettings->save();
+        return redirect(route('index'));
     }
 }

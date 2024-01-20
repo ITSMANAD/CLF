@@ -10,6 +10,7 @@ use App\Http\Requests\StoreSubCategory;
 use App\Http\Requests\UploadBannerImage;
 use App\Http\Requests\user_edit_request;
 use App\Http\Requests\UpdateBlogPostRequest;
+use App\Models\attributegroups;
 use App\Models\Banners;
 use App\Models\BlogCategory;
 use App\Models\BlogPosts;
@@ -20,6 +21,7 @@ use App\Models\Settings;
 use App\Models\ShopSettings;
 use App\Models\SubCategory;
 use App\Models\User;
+use Doctrine\Inflector\Rules\NorwegianBokmal\Rules;
 use Dotenv\Util\Str;
 use Hamcrest\Core\Set;
 use Illuminate\Http\Request;
@@ -43,7 +45,7 @@ class AdminController extends Controller
         $h2 = Banners::all()->whereIn('blocation','h2');
         $h3 = Banners::all()->whereIn('blocation','h3');
         $h4 = Banners::all()->whereIn('blocation','h4');
-            return view('admin.settings. ',compact('h1','h2','h3','h4'));
+            return view('admin.settings.home',compact('h1','h2','h3','h4'));
     }
     function CategorySettings(){
         $categories = Category::all();
@@ -183,6 +185,33 @@ class AdminController extends Controller
         }else{
             return view('admin.content.ShopSettings',compact('ShopSettings'));
         }
+    }
+
+    function ShopAttributeGroups()
+    {
+        $attributes = attributegroups::all()->sortByDesc('created_at');
+        return view('admin.content.Attributes.AttributeGroups',compact('attributes'));
+    }
+
+    function ShopAttributeGroupsAdd()
+    {
+        return view('admin.content.Attributes.ShopAttributeGroupsAdd');
+    }
+
+    function ShopAttributeGroupsEdit($id)
+    {
+        $AttributeGroups = attributegroups::all()->whereIn('id',$id)->first();
+        if (is_null($AttributeGroups)){
+            return \redirect(route('ShopAttributeGroups'))->with('error','آیدی یافت نشد!');
+        }else{
+            return view('admin.content.Attributes.ShopAttributeGroupsEdit',compact('AttributeGroups'));
+        }
+    }
+
+    function ShopAttributeAdd()
+    {
+        $AttributeGroups = attributegroups::all();
+        return view('admin.content.Attributes.AttributeAdd',compact('AttributeGroups'));
     }
     // ------------------
     function GeneralUpdate(Request $request)
@@ -580,6 +609,43 @@ class AdminController extends Controller
         $ShopSettings->Ftitle = $request->input('title');
         $ShopSettings->Fseller = $request->input('Seller');
             $ShopSettings->update();
+    }
+
+    function ShopAttributeGroupsAddStore(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+        ]);
+        $name = $validatedData['name'];
+        $AttributesGroups = new attributegroups();
+        $AttributesGroups->name = $name;
+        $AttributesGroups->save();
+        return \redirect(route('ShopAttributeGroups'));
+    }
+
+    function ShopAttributeGroupsDelete(Request $request)
+    {
+        if (is_null($request->input('id'))){
+            return back()->with('error','آیدی پیدا نشد!');
+        }else{
+            $AttributeGroups = attributegroups::all()->whereIn('id',$request->input('id'))->first();
+            $AttributeGroups->delete();
+            return back()->with('success','درخواست با موفقیت انجام شد!');
+        }
+    }
+
+    function ShopAttributeGroupsEditStore(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'id' => 'required',
+        ]);
+        $name = $validatedData['name'];
+        $id = $validatedData['id'];
+        $AttributesGroup = attributegroups::all()->whereIn('id',$id)->first();
+        $AttributesGroup->name = $name;
+        $AttributesGroup->update();
+        return \redirect(route('ShopAttributeGroups'))->with('success','درخواست با موفقیت انجام شد!');
     }
 }
 
