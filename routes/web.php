@@ -110,6 +110,9 @@ Route::controller(AdminController::class)->group(function () {
         Route::patch('/admin/shop/attributeGroups/add','ShopAttributeGroupsAddStore')->name('ShopAttributeGroupsAddStore');
         Route::get('/admin/shop/attributeGroups/attribute','ShopAttributeAdd')->name('ShopAttributeAdd');
         Route::patch('/admin/shop/attributeGroups/attribute','ShopAttributeAddStore')->name('ShopAttributeAddStore');
+        Route::get('/admin/shop/attributeGroups/{id}','ShopAttributesGroupAt')->name('ShopAttributesGroupAt');
+        Route::put('/admin/shop/attributeGroups/attribute/delete','ShopAttributeDelete')->name('ShopAttributeDelete');
+
 
 
 });

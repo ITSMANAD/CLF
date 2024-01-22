@@ -37,7 +37,7 @@
                                             <input type="text" class="form-control" name="name" id="name" placeholder="نام گروه ویژگی را وارد کنید!" required>
                                         </div>
                                         <div class="d-grid ">
-                                            <button type="submit" class="btn fs-5 text-white" style="background-color: #039645;">ورود</button>
+                                            <button type="submit" class="btn fs-5 text-white" style="background-color: #039645;">ثبت اطلاعات</button>
                                         </div>
                                     </form>
                                 </div>

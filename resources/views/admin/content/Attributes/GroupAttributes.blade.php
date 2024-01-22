@@ -1,5 +1,5 @@
 @extends('admin.partials.master')
-@section('title','لیست ویژگی ها')
+@section('title','مشاهده مقادیر گروه ویژگی')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -7,7 +7,9 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">لیست ویژگی ها</h1>
+                        @foreach($AttributeGroups as $AttributeGroup)
+                        <h1 class="m-0 text-dark">مقادیر لیست {{$AttributeGroup->name}} </h1>
+                        @endforeach
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-left">
@@ -20,7 +22,7 @@
         </div>
         <div class="content">
             <div class="container-fluid">
-            @if(session('success'))
+                @if(session('success'))
                     <div class="container mt-5">
                         <div class="alert alert-success" role="alert">
                             <h4 class="alert-heading">موفق</h4>
@@ -28,7 +30,7 @@
                             <hr>
                         </div>
                     </div>
-            @endif
+                @endif
                 @if(session('error'))
                     <div class="container mt-5">
                         <div class="alert alert-danger" role="alert">
@@ -61,7 +63,7 @@
                                 لیست
                             </div>
                             <div class="card-tools">
-                                <a href="{{route('ShopAttributeGroupsAdd')}}" class="btn btn-accent btn-sm text-white">اضافه کردن گروه ویژگی</a>
+                                <a href="{{route('ShopAttributeAdd')}}" class="btn btn-accent btn-sm text-white">اضافه کردن ویژگی</a>
                             </div>
                             <div class="card-body">
                                 <div class="overflow-x-auto">
@@ -76,22 +78,21 @@
                                         </thead>
                                         <tbody>
                                         @foreach($attributes as $attribute)
-                                        <tr>
-                                            <th>{{$attribute->id}}</th>
-                                            <td>{{$attribute->name}}</td>
-                                            <td class="text-center">
-                                                <div class="join text-white">
-                                                    <a href="attributeGroups/{{$attribute->id}}" class="btn join-item btn-success">مشاهده مقادیر</a>
-                                                    <a href="attributeGroups/edit/{{$attribute->id}}" class="btn join-item btn-warning ">ویرایش</a>
-                                                    <form action="{{route('ShopAttributeGroupsDelete')}}" method="post">
-                                                        @method('put')
-                                                        @csrf
-                                                        <input type="hidden" name="id" value="{{$attribute->id}}">
-                                                        <input value="حذف" type="submit" class="btn join-item btn-error" style="background-color:#EF4C53;">
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <th>{{$attribute->id}}</th>
+                                                <td>{{$attribute->name}}</td>
+                                                <td class="text-center">
+                                                    <div class="join text-white">
+                                                        <a href="attributeGroups/attribute/edit/{{$attribute->id}}" class="btn join-item btn-warning ">ویرایش</a>
+                                                        <form action="{{route('ShopAttributeDelete')}}" method="post">
+                                                            @method('put')
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{$attribute->id}}">
+                                                            <input value="حذف" type="submit" class="btn join-item btn-error" style="background-color:#EF4C53;">
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                         </tbody>
                                     </table>

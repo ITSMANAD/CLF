@@ -11,6 +11,7 @@ use App\Http\Requests\UploadBannerImage;
 use App\Http\Requests\user_edit_request;
 use App\Http\Requests\UpdateBlogPostRequest;
 use App\Models\attributegroups;
+use App\Models\Attributes;
 use App\Models\Banners;
 use App\Models\BlogCategory;
 use App\Models\BlogPosts;
@@ -212,6 +213,18 @@ class AdminController extends Controller
     {
         $AttributeGroups = attributegroups::all();
         return view('admin.content.Attributes.AttributeAdd',compact('AttributeGroups'));
+    }
+
+    function ShopAttributesGroupAt($id)
+    {
+        $AttributeGroups = attributegroups::all()->whereIn('id',$id);
+        if (count($AttributeGroups) > 0){
+            $attributes = Attributes::all()->whereIn('attributeGroup',$id)->sortByDesc('created_at');
+            return view('admin.content.Attributes.GroupAttributes',compact('attributes','AttributeGroups'));
+        }else{
+            return \redirect(route('ShopAttributeGroups'))->with('error','آیدی یافت نشد!');
+        }
+
     }
     // ------------------
     function GeneralUpdate(Request $request)
@@ -646,6 +659,32 @@ class AdminController extends Controller
         $AttributesGroup->name = $name;
         $AttributesGroup->update();
         return \redirect(route('ShopAttributeGroups'))->with('success','درخواست با موفقیت انجام شد!');
+    }
+
+    function ShopAttributeAddStore(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'attributeGroups' => 'required',
+        ]);
+        $name = $validatedData['name'];
+        $attributeGroups = $validatedData['attributeGroups'];
+        $Attributes = new Attributes();
+        $Attributes->name = $name;
+        $Attributes->attributeGroup = $attributeGroups;
+        $Attributes->save();
+        return \redirect(route('ShopAttributeGroups'))->with('success','درخواست با موفقیت انجام شد!');
+    }
+
+    function ShopAttributeDelete(Request $request)
+    {
+        if (is_null($request->input('id'))){
+            return back()->with('error','آیدی پیدا نشد!');
+        }else{
+            $Attribute = Attributes::all()->whereIn('id',$request->input('id'))->first();
+            $Attribute->delete();
+            return back()->with('success','درخواست با موفقیت انجام شد!');
+        }
     }
 }
 

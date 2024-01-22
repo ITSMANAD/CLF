@@ -243,8 +243,6 @@
  }
  function bannereditform() {
      var formData = new FormData(document.getElementById('banner-edit-form'));
-     var editorValue = CKEDITOR.instances.editor1.getData();
-     formData.append('text', editorValue);
      axios.post('/admin/settings/home/', formData)
          .then(function (response) {
              window.location.pathname = "/admin/settings/home";
