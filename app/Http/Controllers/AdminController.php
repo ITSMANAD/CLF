@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BrandAddRequest;
 use App\Http\Requests\GeneralUpdateR;
 use App\Http\Requests\ShopSettingsStoreRequest;
 use App\Http\Requests\StoreBlogPostRequest;
@@ -16,6 +17,7 @@ use App\Models\Banners;
 use App\Models\BlogCategory;
 use App\Models\BlogPosts;
 use App\Models\BlogSubCategory;
+use App\Models\Brands;
 use App\Models\Category;
 use App\Models\MegaCategory;
 use App\Models\Settings;
@@ -225,6 +227,20 @@ class AdminController extends Controller
             return \redirect(route('ShopAttributeGroups'))->with('error','آیدی یافت نشد!');
         }
 
+    }
+
+    function ShopBrands()
+    {
+        $Brands = Brands::all()->sortByDesc('created_at');
+        return view('admin.content.Brands.Brands',compact('Brands'));
+    }
+
+    function ShopBrandsAdd()
+    {
+        return view('admin.content.Brands.NewBrand');
+    }
+    function ShopProducts(){
+        return view('admin.content.Products');
     }
     // ------------------
     function GeneralUpdate(Request $request)
@@ -666,12 +682,15 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'attributeGroups' => 'required',
+            'price' => 'required|int',
         ]);
         $name = $validatedData['name'];
         $attributeGroups = $validatedData['attributeGroups'];
+        $price = $validatedData['price'];
         $Attributes = new Attributes();
         $Attributes->name = $name;
         $Attributes->attributeGroup = $attributeGroups;
+        $Attributes->price = $price;
         $Attributes->save();
         return \redirect(route('ShopAttributeGroups'))->with('success','درخواست با موفقیت انجام شد!');
     }
@@ -684,6 +703,44 @@ class AdminController extends Controller
             $Attribute = Attributes::all()->whereIn('id',$request->input('id'))->first();
             $Attribute->delete();
             return back()->with('success','درخواست با موفقیت انجام شد!');
+        }
+    }
+
+    function ShopBrandsAddStore(Request $request)
+    {
+        $Brands = new Brands();
+        if ($request->hasFile('image')){
+            $destination= base_path().'/public/img/';
+            if(!is_dir($destination))
+            {
+                mkdir($destination,0777,true);
+            }
+            $destination=$destination.'/';
+            $file=$request->file('image');
+            $filenameone = $file->getFilename().rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
+            $file->move($destination,$filenameone);
+            $Brands->image = "/img/".$filenameone;
+        }
+        $Brands->name = $request->input('name');
+        $Brands->description = $request->input('text');
+        $slug = \Illuminate\Support\Str::slug($request->input('slug'),'-');
+        $Brands->slug = $slug;
+        $Brands->save();
+        return \redirect(route('ShopBrands'))->with('success','عملیات با موفقیت انجام شد!');
+    }
+
+    function ShopBrandsDelete(Request $request)
+    {
+        $validation = $request->validate([
+           'id' => 'required|string'
+        ]);
+        $id = $validation['id'];
+        $check = Brands::all()->whereIn('id',$id)->first();
+        if (is_null($check)){
+            return back()->with('error','آیدی یافت نشد!');
+        }else{
+            $check->delete();
+            return \redirect(route('ShopBrands'))->with('success','عملیات با موفقیت انجام شد!');
         }
     }
 }

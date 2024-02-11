@@ -73,6 +73,7 @@
                                         <tr>
                                             <th></th>
                                             <th>عنوان</th>
+                                            <th>قیمت افزوده بر محصول</th>
                                             <th class="text-center">عملیات</th>
                                         </tr>
                                         </thead>
@@ -81,6 +82,21 @@
                                             <tr>
                                                 <th>{{$attribute->id}}</th>
                                                 <td>{{$attribute->name}}</td>
+                                                <td>
+                                                    @if($attribute->price < 0)
+                                                        بدون قیمت
+                                                    @else
+                                                        @php
+                                                            $amount = $attribute->price;
+
+                                                            // تبدیل به فرمت مورد نظر
+                                                            $formattedAmount = number_format($amount);
+
+                                                            // نمایش نتیجه
+                                                            echo $formattedAmount . ' تومان';
+                                                            @endphp
+                                                    @endif
+                                                </td>
                                                 <td class="text-center">
                                                     <div class="join text-white">
                                                         <a href="attributeGroups/attribute/edit/{{$attribute->id}}" class="btn join-item btn-warning ">ویرایش</a>

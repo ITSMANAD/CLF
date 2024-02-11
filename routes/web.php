@@ -112,8 +112,15 @@ Route::controller(AdminController::class)->group(function () {
         Route::patch('/admin/shop/attributeGroups/attribute','ShopAttributeAddStore')->name('ShopAttributeAddStore');
         Route::get('/admin/shop/attributeGroups/{id}','ShopAttributesGroupAt')->name('ShopAttributesGroupAt');
         Route::put('/admin/shop/attributeGroups/attribute/delete','ShopAttributeDelete')->name('ShopAttributeDelete');
-
-
+        //Brands
+        Route::get('/admin/shop/brands','ShopBrands')->name('ShopBrands');
+        Route::get('/admin/shop/brands/add','ShopBrandsAdd')->name('ShopBrandsAdd');
+        Route::patch('/admin/shop/brands/add','ShopBrandsAddStore')->name('ShopBrandsAddStore');
+        Route::put('/admin/shop/brands/delete','ShopBrandsDelete')->name('ShopBrandsDelete');
+        //ProductInfo
+        
+        //Products
+        Route::get('/shop/products','ShopProducts')->name('ShopProducts');
 
 });
 });

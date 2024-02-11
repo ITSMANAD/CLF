@@ -46,6 +46,10 @@
                                             <input type="text" class="form-control" name="name" id="name" placeholder="نام ویژگی را وارد کنید!" required>
                                         </div>
                                         <div class="mb-3">
+                                            <label for="price" class="form-label">قیمت افزوده بر محصول (تومان):</label>
+                                            <input type="number" class="form-control" name="price" value="0" id="price" placeholder="قیمت را وارد کنید! (تومان)" required>
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="attributeGroups" class="form-label">گروه ویژگی:</label>
                                             <select id="attributeGroups" name="attributeGroups" class="form-select">
                                                 <option selected disabled>انتخاب کنید</option>

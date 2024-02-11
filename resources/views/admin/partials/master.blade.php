@@ -104,6 +104,7 @@
                                 <i class="right fa fa-angle-left"></i>
                             </p>
                         </a>
+
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
                                 <a href="{{route('CategorySettings')}}" class="nav-link @if(request()->is('admin/categories')) active @endif @if(request()->is('admin/categories/add')) active @endif">
@@ -112,6 +113,42 @@
                                 </a>
                             </li>
                             <li class="nav-item has-treeview ">
+                                <a href="#" class="nav-link @if(request()->is('admin/shop/brands')) active @endif @if(request()->is('admin/shop/brands/add')) active @endif @if(request()->is('admin/shop/brands/edit')) active @endif">
+                                    <i class="nav-icon fa fa-bold"></i>
+                                    <p>
+                                        برند ها
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item">
+                                        <a href="{{route('ShopBrands')}}" class="nav-link @if(request()->is('admin/shop/brands')) active @endif">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>لیست برند ها</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('ShopBrandsAdd')}}" class="nav-link @if(request()->is('admin/shop/brands/add')) active @endif">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>افزودن برند</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview ">
+                            <li class="nav-item">
+                                <a href="{{route('ShopSettings')}}" class="nav-link @if(request()->is('admin/shop/settings')) active @endif">
+                                    <i class="fa fa-cubes nav-icon"></i>
+                                    <p>محصولات</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('CategorySettings')}}" class="nav-link @if(request()->is('admin/categories')) active @endif @if(request()->is('admin/categories/add')) active @endif">
+                                    <i class="fa fa-bookmark nav-icon"></i>
+                                    <p>مشخصات محصول</p>
+                                </a>
+                            </li>
+                            
                                 <a href="#" class="nav-link @if(request()->is('admin/shop/attributeGroups')) active @endif @if(request()->is('admin/shop/attributeGroups/add')) active @endif @if(request()->is('admin/shop/attributeGroups/attribute')) active @endif">
                                     <i class="nav-icon fa fa-paperclip"></i>
                                     <p>
