@@ -20,6 +20,8 @@ use App\Models\BlogSubCategory;
 use App\Models\Brands;
 use App\Models\Category;
 use App\Models\MegaCategory;
+use App\Models\Products;
+use App\Models\Products_Price;
 use App\Models\Settings;
 use App\Models\ShopSettings;
 use App\Models\SubCategory;
@@ -240,7 +242,14 @@ class AdminController extends Controller
         return view('admin.content.Brands.NewBrand');
     }
     function ShopProducts(){
-        return view('admin.content.Products');
+        $Products = Products::all()->sortByDesc('created_at');
+        return view('admin.content.Products',compact('Products'));
+    }
+
+    function ShopProduct($id)
+    {
+        $Product = Products::all()->whereIn('id',$id)->first();
+        return view('admin.content.ProductInformation',compact('Product'));
     }
     // ------------------
     function GeneralUpdate(Request $request)

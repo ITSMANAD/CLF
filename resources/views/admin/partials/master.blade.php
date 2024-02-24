@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
     <!-- bootstrap rtl -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
     <!-- template rtl version -->
 
     <link rel="stylesheet" href="/dist/css/custom-style.css">
@@ -137,7 +137,7 @@
                             </li>
                             <li class="nav-item has-treeview ">
                             <li class="nav-item">
-                                <a href="{{route('ShopSettings')}}" class="nav-link @if(request()->is('admin/shop/settings')) active @endif">
+                                <a href="{{route('ShopProducts')}}" class="nav-link @if(request()->is('admin/shop/products')) active @endif">
                                     <i class="fa fa-cubes nav-icon"></i>
                                     <p>محصولات</p>
                                 </a>
@@ -148,7 +148,7 @@
                                     <p>مشخصات محصول</p>
                                 </a>
                             </li>
-                            
+
                                 <a href="#" class="nav-link @if(request()->is('admin/shop/attributeGroups')) active @endif @if(request()->is('admin/shop/attributeGroups/add')) active @endif @if(request()->is('admin/shop/attributeGroups/attribute')) active @endif">
                                     <i class="nav-icon fa fa-paperclip"></i>
                                     <p>
@@ -267,11 +267,12 @@
 
 @endforeach
 <!-- REQUIRED SCRIPTS -->
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.js"></script>
 

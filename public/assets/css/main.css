@@ -6904,5 +6904,9 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
         font-size: 15px;
     }
 }
-
+@media (max-width: 400px) {
+    .image-takhfif{
+        display: none;
+    }
+}
 /* responsive */

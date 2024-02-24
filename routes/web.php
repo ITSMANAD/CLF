@@ -118,9 +118,10 @@ Route::controller(AdminController::class)->group(function () {
         Route::patch('/admin/shop/brands/add','ShopBrandsAddStore')->name('ShopBrandsAddStore');
         Route::put('/admin/shop/brands/delete','ShopBrandsDelete')->name('ShopBrandsDelete');
         //ProductInfo
-        
+
         //Products
         Route::get('/shop/products','ShopProducts')->name('ShopProducts');
+        Route::get('/shop/products/{id}','ShopProduct');
 
 });
 });

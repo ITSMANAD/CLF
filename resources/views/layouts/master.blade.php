@@ -311,7 +311,7 @@
                             <div class="dropdown-item">
 
                                 <div class="d-grid gap-2">
-                                    <form action="{{route('logout')}}">
+                                    <form method="post" action="{{route('logout')}}">
                                         @method('patch')
                                     <button class="btn btn-link fs-6 text-decoration-none">
                                         <i class="fa fa-sign-out fs-5"></i>

@@ -85,7 +85,7 @@
         </div>
         <!-- Special Product -->
         <div class="row">
-            <div class="col-12">
+            <div class="container text-center">
                 <div class="widget widget-product card">
                     <header class="card-header">
                         <h3 class="card-title">
@@ -93,86 +93,53 @@
                         </h3>
                         <a href="#/" class="view-all">مشاهده همه</a>
                     </header>
-                    <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
-                        <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2411px;"><div class="owl-item active" style="width: 334.313px; margin-left: 10px;"><div class="item">
-                                        <a href="#/">
-                                            <img src="assets/img/product-slider/60eb20-200x200.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#/">لپ تاپ ۱۱٫۶ اینچی دل مدل INSPIRON 3168 -AC B</a>
-                                        </h2>
-                                        <div class="price">
-                                            <div class="text-center">
-                                                <del><span>4,299,000<span>تومان</span></span></del>
+                <div class="row align-items-start">
+                    <div class="col image-takhfif">
+                        <img src="/assets/img/image.jpg"  style="height: 359px;width: 331px"  alt="">
+                    </div>
+                    <div class="col-9">
+                            <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s;">
+                                        <div class="owl-item active" style="width: 320px!important; margin-left: 10px;height: 359px"><div class="item">
+                                                <a href="#/">
+                                                    <img src="assets/img/product-slider/60eb20-200x200.jpg"class="img-fluid" alt="">
+                                                </a>
+                                                <h2 class="post-title">
+                                                    <a href="#/">لپ تاپ ۱۱٫۶ اینچی دل مدل INSPIRON 3168 -AC B</a>
+                                                </h2>
+                                                <div class="price">
+                                                    <div class="text-center">
+                                                        <del><span>4,299,000<span>تومان</span></span></del>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <ins><span>4,180,000<span>تومان</span></span></ins>
+                                                    </div>
+                                                    <button class="btn" style="border-radius: 15px;font-size: 12px;background-color: #FF4961;">خرید این محصول شگفت انگیز</button>
+                                                </div>
                                             </div>
-                                            <div class="text-center">
-                                                <ins><span>4,180,000<span>تومان</span></span></ins>
+                                        </div>
+                                        <div class="owl-item active" style="width: 320px!important; margin-left: 0;height: 359px"><div class="item">
+                                                <a href="#/">
+                                                    <img src="assets/img/product-slider/60eb20-200x200.jpg" class="img-fluid" alt="">
+                                                </a>
+                                                <h2 class="post-title">
+                                                    <a href="#/">لپ تاپ ۱۱٫۶ اینچی دل مدل INSPIRON 3168 -AC B</a>
+                                                </h2>
+                                                <div class="price">
+                                                    <div class="text-center">
+                                                        <del><span>4,299,000<span>تومان</span></span></del>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <ins><span>4,180,000<span>تومان</span></span></ins>
+                                                    </div>
+                                                    <button class="btn" style="border-radius: 15px;font-size: 12px;background-color: #FF4961;">خرید این محصول شگفت انگیز</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div></div><div class="owl-item active" style="width: 334.313px; margin-left: 10px;"><div class="item">
-                                        <a href="#/">
-                                            <img src="assets/img/product-slider/4ff777-200x200.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#/">لپ تاپ ۱۴ اینچی دل مدل vostro 5471</a>
-                                        </h2>
-                                        <div class="price">
-                                            <del><span>6,890,000<span>تومان</span></span></del>
-                                            <ins><span>6,580,000<span>تومان</span></span></ins>
-                                        </div>
-                                    </div></div><div class="owl-item active" style="width: 334.313px; margin-left: 10px;"><div class="item">
-                                        <a href="#/">
-                                            <img src="assets/img/product-slider/35a2b8-200x200.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#/">لپ تاپ ۱۵ اینچی دل مدل Latitude 5580</a>
-                                        </h2>
-                                        <div class="price">
-                                            <del><span>4,799,000<span>تومان</span></span></del>
-                                            <ins><span>4,699,000<span>تومان</span></span></ins>
-                                        </div>
-                                    </div></div><div class="owl-item active" style="width: 334.313px; margin-left: 10px;"><div class="item">
-                                        <a href="#/">
-                                            <img src="assets/img/product-slider/9b3da9-200x200.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#/">لپ تاپ ۱۵ اینچی دل مدل INSPIRON 15-3567 - I</a>
-                                        </h2>
-                                        <div class="price">
-                                            <span>2,780,000<span>تومان</span></span>
-                                        </div>
-                                    </div></div><div class="owl-item" style="width: 334.313px; margin-left: 10px;"><div class="item">
-                                        <a href="#/">
-                                            <img src="assets/img/product-slider/c8297f-200x200.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#/">لپ تاپ ۱۵ اینچی دل مدل INSPIRON 7577 - D</a>
-                                        </h2>
-                                        <div class="price">
-                                            <del><span>8,999,000<span>تومان</span></span></del>
-                                            <ins><span>8,899,000<span>تومان</span></span></ins>
-                                        </div>
-                                    </div></div><div class="owl-item" style="width: 334.313px; margin-left: 10px;"><div class="item">
-                                        <a href="#/">
-                                            <img src="assets/img/product-slider/a579bb-200x200.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#/">لپ تاپ ۱۵ اینچی دل مدل Inspiron 15-5570 - B</a>
-                                        </h2>
-                                        <div class="price">
-                                            <span>4,279,000<span>تومان</span></span>
-                                        </div>
-                                    </div></div><div class="owl-item" style="width: 334.313px; margin-left: 10px;"><div class="item">
-                                        <a href="#/">
-                                            <img src="assets/img/product-slider/19a2cc-200x200.jpg" class="img-fluid" alt="">
-                                        </a>
-                                        <h2 class="post-title">
-                                            <a href="#/">لپ تاپ ۱۵ اینچی دل مدل XPS 15-9560</a>
-                                        </h2>
-                                        <div class="price">
-                                            <span>18,450,000<span>تومان</span></span>
-                                        </div>
-                                    </div></div></div></div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="now-ui-icons arrows-1_minimal-right"></i></button><button type="button" role="presentation" class="owl-next"><i class="now-ui-icons arrows-1_minimal-left"></i></button></div><div class="owl-dots disabled"></div></div>
+                                        <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="now-ui-icons arrows-1_minimal-right"></i></button><button type="button" role="presentation" class="owl-next"><i class="now-ui-icons arrows-1_minimal-left"></i></button></div><div class="owl-dots disabled"></div></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -507,13 +474,7 @@
                     </header>
                     <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
 
-
-
-
-
-
-
-                        <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2411px;"><div class="owl-item active" style="width: 334.313px; margin-left: 10px;"><div class="item">
+                        <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px!important;"><div class="owl-item active" style="width: 334.313px!important; margin-left: 10px;"><div class="item">
                                         <a href="#/">
                                             <img src="assets/img/product-slider/60eb20-200x200.jpg" class="img-fluid" alt="">
                                         </a>
@@ -524,7 +485,7 @@
                                             <del><span>4,299,000<span>تومان</span></span></del>
                                             <ins><span>4,180,000<span>تومان</span></span></ins>
                                         </div>
-                                    </div></div><div class="owl-item active" style="width: 334.313px; margin-left: 10px;"><div class="item">
+                                    </div></div><div class="owl-item active" style="width: 334.313px!important; margin-left: 10px;"><div class="item">
                                         <a href="#/">
                                             <img src="assets/img/product-slider/4ff777-200x200.jpg" class="img-fluid" alt="">
                                         </a>
