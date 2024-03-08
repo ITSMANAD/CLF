@@ -40,12 +40,15 @@
                             <!-- small box -->
                             <div class="small-box bg-light shadow-lg rounded-3 p-2">
                                 <div class="inner">
-                                    <h3>0</h3>
+                                    @php
+                                    $Products = \App\Models\Products::all()->count();
+                                    @endphp
+                                    <h3>{{$Products}}</h3>
 
                                     <p>تعداد محصولات</p>
                                 </div>
 
-                                <a href="#" class="small-box-footer bg-light">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                                <a href="{{route('ShopProducts')}}" class="small-box-footer bg-light">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->

@@ -1,0 +1,84 @@
+/* Style the breadcrumb container */
+nav.breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+
+/* Style the breadcrumb items (links and separators) */
+nav.breadcrumb a {
+    text-decoration: none;
+    color: #ffffff;
+    transition: color 0.3s;
+}
+
+nav.breadcrumb a:hover {
+    color: #666666;
+    text-shadow: 1px 3px 2px yellow;
+}
+
+nav.breadcrumb span {
+    margin: 0 8px;
+    color: #777;
+}
+
+/* Hide the last separator */
+nav.breadcrumb span:last-child {
+    display: none;
+}
+.backg-grey{
+    background-color: #b9b9b9 !important;
+}
+.top-1{
+    top: 5px!important;
+}
+.hover-1-blue:hover{
+    color: blue;
+    cursor: pointer;
+}
+.mybox-1{
+    width: 223px;
+    height: 61px;
+    background-color: #F0F0F1;
+}
+.center{
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+.rate {
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+

@@ -21,6 +21,7 @@ use App\Models\Brands;
 use App\Models\Category;
 use App\Models\MegaCategory;
 use App\Models\Products;
+use App\Models\products_inventory;
 use App\Models\Products_Price;
 use App\Models\Settings;
 use App\Models\ShopSettings;
@@ -28,6 +29,7 @@ use App\Models\SubCategory;
 use App\Models\User;
 use Doctrine\Inflector\Rules\NorwegianBokmal\Rules;
 use Dotenv\Util\Str;
+use GuzzleHttp\Client;
 use Hamcrest\Core\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -250,6 +252,34 @@ class AdminController extends Controller
     {
         $Product = Products::all()->whereIn('id',$id)->first();
         return view('admin.content.ProductInformation',compact('Product'));
+    }
+
+    function ProductsSpecs()
+    {
+        $Products = Products::all()->sortByDesc('created_at');
+        return view('admin.content.specs',compact('Products'));
+    }
+
+    function ShopInventory()
+    {
+        $Inventory = products_inventory::all();
+        return view('admin.content.inventory',compact('Inventory'));
+    }
+
+    function ShopCarriers()
+    {
+        return view('admin.content.Carrier.CarriersList');
+    }
+
+    function ShopCarriersAdd()
+    {
+
+        $client = new Client();
+        $res = $client->get('https://iran-locations-api.ir/api/v1/fa/cities?state=لرستان');
+        echo $res->getStatusCode(); // 200
+        echo $res->getBody();
+
+
     }
     // ------------------
     function GeneralUpdate(Request $request)

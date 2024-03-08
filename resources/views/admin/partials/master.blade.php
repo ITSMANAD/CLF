@@ -143,12 +143,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('CategorySettings')}}" class="nav-link @if(request()->is('admin/categories')) active @endif @if(request()->is('admin/categories/add')) active @endif">
+                                <a href="{{route('ProductsSpecs')}}" class="nav-link @if(request()->is('admin/shop/specs')) active @endif">
                                     <i class="fa fa-bookmark nav-icon"></i>
-                                    <p>مشخصات محصول</p>
+                                    <p>مشخصات محصولات</p>
                                 </a>
                             </li>
-
+                                <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link @if(request()->is('admin/shop/attributeGroups')) active @endif @if(request()->is('admin/shop/attributeGroups/add')) active @endif @if(request()->is('admin/shop/attributeGroups/attribute')) active @endif">
                                     <i class="nav-icon fa fa-paperclip"></i>
                                     <p>
@@ -199,6 +199,29 @@
                                 <a href="{{route('UsersAdd')}}" class="nav-link @if(request()->is('admin/users/add')) active @endif">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>افزودن کاربر</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview ">
+                        <a href="#" class="nav-link @if(request()->is('admin/shop/carriers')) active @endif @if(request()->is('admin/shop/carriers/add')) active @endif">
+                            <i class="nav-icon fa fa-paper-plane-o"></i>
+                            <p>
+                               حمل و نقل
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a style="font-size: 14px" href="{{route('ShopCarriers')}}" class="nav-link @if(request()->is('admin/shop/carriers')) active @endif">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p> روش های حمل و نقل</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a style="font-size: 14px" href="{{route('ShopCarriersAdd')}}" class="nav-link @if(request()->is('admin/shop/carriers/add')) active @endif">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p> اضافه کردن روش ارسال</p>
                                 </a>
                             </li>
                         </ul>

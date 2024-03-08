@@ -1011,6 +1011,8 @@
     <script src="/assets/js/plugins/owl.carousel.min.js" type="text/javascript"></script>
     <!--  Jquery easing -->
     <script src="/assets/js/plugins/jquery.easing.1.3.min.js" type="text/javascript"></script>
+<!--  Plugin ez-plus -->
+<script src="assets/js/plugins/jquery.ez-plus.js" type="text/javascript"></script>
     <!-- Main Js -->
     <script src="/assets/js/main.js" type="text/javascript"></script>
 </body>

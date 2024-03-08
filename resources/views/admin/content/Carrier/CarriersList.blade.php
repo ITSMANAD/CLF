@@ -1,0 +1,51 @@
+@extends('admin.partials.master')
+@section('title','روش های ارسال')
+@section('content')
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">روش های حمل و نقل</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-left">
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">خانه</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('ShopProducts')}}">فروشگاه</a></li>
+                            <li class="breadcrumb-item active">روش های ارسال</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">عنوان</th>
+                            <th scope="col">شهرهای تحت پوشش</th>
+                            <th scope="col">پس کرایه</th>
+                            <th scope="col">وضعیت</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

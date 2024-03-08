@@ -48,7 +48,7 @@ body {
     text-align: right;
     font-family: iranyekan!important;
     font-size: 14px;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     color: #515151;
     overflow-x: hidden;
 }
@@ -6631,7 +6631,6 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
         padding: 10px;
     }
 
-    main.main,
     main.cart,
     main.page-404,
     main.cart-page,
@@ -6907,6 +6906,11 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
 @media (max-width: 400px) {
     .image-takhfif{
         display: none;
+    }
+}
+@media  (max-width: 480px) {
+    .img-respons{
+        height: auto!important;
     }
 }
 /* responsive */

@@ -50,20 +50,105 @@
                            $Product_Price = \App\Models\Products_Price::all()->whereIn('PID',$Product->id)->first();
                            @endphp
                             @if($Product_Price->in_amazing == 1)
-                                <div class="mt-5 fs-4">
-                                    <span>قیمت اصلی :</span><span class="text-decoration-line-through me-2 text-secondary"> {{number_format($Product_Price->price)}} تومان </span><br>
-                                    <span>قیمت شگفت انگیز  :</span><span class="text-success">{{number_format($Product_Price->amazing_price)}} تومان </span>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="mt-5 fs-4">
+                                            <span>قیمت اصلی :</span><span class="text-decoration-line-through me-2 text-secondary"> {{number_format($Product_Price->price)}} تومان </span><br>
+                                            <span>قیمت شگفت انگیز  :</span><span class="text-success">{{number_format($Product_Price->amazing_price)}} تومان </span>
+                                        </div>
+                                        @php
+                                        $Product_Inventory = \App\Models\products_inventory::all()->whereIn('PID',$Product->id)->first();
+                                        @endphp
+                                        <p class="fw-bold underline">تعداد محصول در انبار : {{$Product_Inventory->number}} عدد </p>
+                                        <br>
+                                        <button class="btn shadow-md text-light" style="border-radius: 15px;font-size: 12px;background-color: #FF4961;">مشاهده محصول در فروشگاه</button>
+                                    </div>
+                                    @php
+                                        $Product_Brand = \App\Models\Brands::all()->whereIn('id',$Product->brand)->first();
+                                    @endphp
+                                    <div class="col-sm-7 mx-auto">
+                                        <div class="card w-96 bg-base-100 shadow-xl image-full img-fluid">
+                                            <figure><img src="{{$Product_Brand->image}}" alt="Shoes" /></figure>
+                                            <div class="card-body container">
+                                                <h2 class="card-title">{{$Product_Brand->name}}</h2>
+                                                <p style="color: rgba(255,255,255,0.77)">{{strip_tags($Product_Brand->description)}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             @else
-                                <div class="mt-5 fs-4">
-                                    <span>قیمت :</span><span class=" me-2 text-success"> {{number_format($Product_Price->price)}} تومان </span><br>
-                                </div>
 
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="mt-5 fs-4">
+                                            <span>قیمت :</span><span class=" me-2 text-success"> {{number_format($Product_Price->price)}} تومان </span><br>
+                                        </div>
+                                        @php
+                                            $Product_Inventory = \App\Models\products_inventory::all()->whereIn('PID',$Product->id)->first();
+                                        @endphp
+                                        <p class="fw-bold underline">تعداد محصول در انبار : {{$Product_Inventory->number}} عدد </p>
+                                        <br>
+                                        <button class="btn shadow-md text-light"  style="border-radius: 15px;font-size: 12px;background-color: #FF4961;">مشاهده محصول در فروشگاه</button>
+                                    </div>
+                                    @php
+                                    $Product_Brand = \App\Models\Brands::all()->whereIn('id',$Product->brand)->first();
+                                    @endphp
+                                    <div class="col-sm-7 mx-auto">
+                                        <div class="card w-96 bg-base-100 shadow-xl image-full img-fluid">
+                                            <figure><img src="{{$Product_Brand->image}}" alt="Shoes" /></figure>
+                                            <div class="card-body container">
+                                                <h2 class="card-title">{{$Product_Brand->name}}</h2>
+                                                <p style="color: rgba(255,255,255,0.77)">{{strip_tags($Product_Brand->description)}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
+                            <br>
                         </div>
                     </div>
                 </div>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                معرفی محصول
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                @php
+                                echo $Product->description;
+                                @endphp
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                مشخصات محصول
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <table class="table">
 
+                                    <tbody>
+                                    @php
+                                    $Product_Specs = \App\Models\Products_Specs::all()->whereIn('PID',$Product->id);
+                                    @endphp
+                                    @foreach($Product_Specs as $Product_Spec)
+                                    <tr>
+                                        <td>{{$Product_Spec->title}}</td>
+                                        <td>{{$Product_Spec->value}}</td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

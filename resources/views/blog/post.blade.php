@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="article-content" dir="ltr">
-                                {{$Post->text}}
+                                {{strip_tags($Post->text)}}
                             </div>
                         </article>
 {{--                        <div class="contact-form article-comment">--}}
