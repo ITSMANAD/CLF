@@ -352,7 +352,7 @@ header.main-header .cart .dropdown-menu {
     z-index: 10;
     box-shadow: 0 2px 9px 0 hsla(0, 0%, 44%, .32);
     padding: 1px 0 45px 0;
-    transform: none !important;
+
 }
 
 header.main-header .cart .dropdown-menu:before {
@@ -6023,7 +6023,7 @@ main.profile-user-page .responsive-profile-menu .dropdown-menu a i {
     }
 
     .nav-open .sidebar-collapse.menu-on-left .wrapper {
-        -webkit-transform: translate3d(150px, 0, 0);
+        -webkit-transform:  0px, 0, 0);
         -moz-transform: translate3d(150px, 0, 0);
         -o-transform: translate3d(150px, 0, 0);
         -ms-transform: translate3d(150px, 0, 0);

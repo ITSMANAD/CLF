@@ -9,10 +9,12 @@ use App\Models\BlogCategory;
 use App\Models\BlogPosts;
 use App\Models\codes;
 use App\Models\Products;
+use App\Models\Products_Price;
 use App\Models\Settings;
 use App\Models\ShopSettings;
 use App\Models\User;
 use Carbon\Carbon;
+use Darryldecode\Cart\Cart;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -144,7 +146,31 @@ class MainController extends Controller
         }
 
     }
+    function AddToCart($slug, Request $request)
+    {
+        if (auth()->check()){
+            $Product = Products::all()->whereIn('slug',$slug)->first();
+            $Product_Price = Products_Price::all()->whereIn('PID',$Product->id)->first();
+            $UserID = auth()->user()->id;
+            $rowId = rand(20,9999999);
+           $Cart = new \App\Models\Cart();
+           $Cart->UID = $UserID;
+           $Cart->PID = $Product->id;
+           $Cart->Price = $Product_Price->price;
+           $Cart->Quantity = 1;
+           $Cart->save();
+            return 'OK';
+        }else{
+            return abort(403);
+        }
+    }
 
+    function RemoveFromCart($id)
+    {
+        $Cart = \App\Models\Cart::all()->whereIn('id',$id)->first();
+        $Cart->delete();
+        return redirect('/');
+    }
 // ---------------------------------------
     function installation_env(Request $request)
     {

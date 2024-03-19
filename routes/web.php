@@ -25,6 +25,8 @@ Route::controller(MainController::class)->group(function () {
     Route::patch('/installation/shop', 'installation_shop')->name('installation_shop');
     Route::post('/installation/env', 'installation_env')->name('installation_env');
     Route::get('/shop/{slug}','SingleProduct');
+    Route::post('/shop/{slug}','AddToCart');
+    Route::get('/cart/remove/{id}','RemoveFromCart');
 
 });
 

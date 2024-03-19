@@ -32,7 +32,7 @@
         <div class="container">
             <div class="navbar-translate">
                 <a class="navbar-brand" href="/">
-                    <img src="/assets/img/logo.png" class="header-responsive w-25"  alt="">
+                    <img src="{{$setting->logo}}" class="header-responsive w-25"  alt="">
                 </a>
                 <button class="navbar-toggler navbar-toggler-icon text-center fs-5" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <button type="button" class="btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button"  class="btn-link js-modal-trigger"  data-target="cart">
                             <i class="now-ui-icons shopping_basket"></i>
                         </button>
 
@@ -339,48 +339,81 @@
                     </div>
                     @endauth
 
-                    <div class="cart dropdown">
-                        <a href=#/ class="btn dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink1">
-                            <i class="now-ui-icons shopping_cart-simple"></i>
+                        <button data-target="cart"  class="btn js-modal-trigger fw-bold shadow" style="border-radius: 10px;font-size: 12px;background-color: #FF4961;">
                             سبد خرید
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                            <div class="basket-header">
-                                <div class="basket-total">
-                                    <span>مبلغ کل خرید:</span>
-                                    <span> ۲۳,۵۰۰</span>
-                                    <span> تومان</span>
+                        </button>
+
+                        <div id="cart" class="modal">
+                            <div class="modal-background"></div>
+                            <div class="modal-content" style="width: 60%">
+                                <div class="card card-light">
+                                    <div class="card-header">
+                                        <div class="card-title fw-bold fs-4">سبد خرید</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table text-end">
+                                            <thead>
+                                            <tr >
+                                                <th></th>
+                                                <th class="text-end">تصویر</th>
+                                                <th class="text-end">نام</th>
+                                                <th class="text-end">قیمت</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @if(auth()->check())
+                                                @php
+                                                $Carts = \App\Models\Cart::all()->whereIn('UID',auth()->user()->id);
+                                                @endphp
+                                                @foreach($Carts as $Cart)
+                                                    @php
+                                                        $Product = \App\Models\Products::all()->whereIn('id',$Cart->PID)->first();
+                                                        $Product_Price = \App\Models\Products_Price::all()->whereIn('id',$Product->id)->first();
+                                                        $Product_Image = \App\Models\Products_Gallery::all()->whereIn('PID',$Cart->PID)->first();
+                                                    @endphp
+                                            <tr>
+                                                <th>
+                                                    <a href="/cart/remove/{{$Cart->id}}" class="button"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                                </th>
+                                                <td class="w-25"><img class="img-fluid img-thumbnail w-50" src="{{$Product_Image->image}}" alt=""></td>
+                                                <td>{{$Product->name}}</td>
+                                                <td>{{number_format($Product_Price->price)}} تومان</td>
+                                            </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <th>برای نمایش سبد خرید ابتدا وارد حساب خود شوید!</th>
+                                                </tr>
+                                            @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card-footer ">
+                                        <p class=" fs-5 m-1">پرداخت :</p><br>
+                                        @php
+
+                                        $Cart1 = \App\Models\Cart::all()->whereIn('UID',auth()->user()->id);
+                                        $totalprice = 0;
+                                        foreach ($Cart1 as $item){
+                                        $price = \App\Models\Products_Price::all()->whereIn('PID',$item->PID)->first();
+                                        $totalprice += $price->price ;
+                                        }
+                                        @endphp
+
+                                        <div class="fw-bold fs-5" style="display: flex">  جمع قیمت : <p>{{number_format($totalprice)}} تومان</p> </div>
+                                        <br>
+                                    </div>
+                                    <div class="container m-2" >
+                                        <button class="btn fw-bold" style="border-radius: 15px;font-size: 12px;background-color: #FF4961;">
+                                            ادامه مراحل پرداخت
+                                        </button>
+                                    </div>
                                 </div>
-                                <a href=#/ class="basket-link">
-                                    <span>مشاهده سبد خرید</span>
-                                    <div class="basket-arrow"></div>
-                                </a>
                             </div>
-                            <ul class="basket-list">
-                                <li>
-                                    <a href=#/ class="basket-item">
-                                        <button class="basket-item-remove"></button>
-                                        <div class="basket-item-content">
-                                            <div class="basket-item-image">
-                                                <img alt="" src="/assets/img/cart/2324935.jpg">
-                                            </div>
-                                            <div class="basket-item-details">
-                                                <div class="basket-item-title">هندزفری بلوتوث مدل S530
-                                                </div>
-                                                <div class="basket-item-params">
-                                                    <div class="basket-item-props">
-                                                        <span> ۱ عدد</span>
-                                                        <span>رنگ مشکی</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <a href=#/ class="basket-submit">ورود و ثبت سفارش</a>
-                        </ul>
-                    </div>
+
+                            <button class="modal-close is-large" aria-label="close"></button>
+                        </div>
                 </div>
             </div>
         </div>

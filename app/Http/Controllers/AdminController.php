@@ -27,6 +27,7 @@ use App\Models\Settings;
 use App\Models\ShopSettings;
 use App\Models\SubCategory;
 use App\Models\User;
+use Darryldecode\Cart\Cart;
 use Doctrine\Inflector\Rules\NorwegianBokmal\Rules;
 use Dotenv\Util\Str;
 use GuzzleHttp\Client;
@@ -274,13 +275,11 @@ class AdminController extends Controller
     function ShopCarriersAdd()
     {
 
-        $client = new Client();
-        $res = $client->get('https://iran-locations-api.ir/api/v1/fa/cities?state=لرستان');
-        echo $res->getStatusCode(); // 200
-        echo $res->getBody();
+
 
 
     }
+    
     // ------------------
     function GeneralUpdate(Request $request)
     {
