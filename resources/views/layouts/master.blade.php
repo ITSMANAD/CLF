@@ -391,6 +391,7 @@
 
                                     <div class="card-footer ">
                                         <p class=" fs-5 m-1">پرداخت :</p><br>
+                                        @if(auth()->check())
                                         @php
 
                                         $Cart1 = \App\Models\Cart::all()->whereIn('UID',auth()->user()->id);
@@ -402,6 +403,7 @@
                                         @endphp
 
                                         <div class="fw-bold fs-5" style="display: flex">  جمع قیمت : <p>{{number_format($totalprice)}} تومان</p> </div>
+                                        @endif
                                         <br>
                                     </div>
                                     <div class="container m-2" >
