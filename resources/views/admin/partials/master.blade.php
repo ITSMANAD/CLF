@@ -262,7 +262,13 @@
                             <i class="fa fa-cog nav-icon"></i>
                             <p>تنظیمات عمومی</p>
                         </a>
+                    </li> <li class="nav-item">
+                        <a href="{{route('ThemeSelector')}}" class="nav-link @if(request()->is('admin/settings/theme')) active @endif">
+                            <i class="fa fa-paint-brush nav-icon"></i>
+                            <p>تنظیمات نمایش</p>
+                        </a>
                     </li>
+
                     <li class="nav-item">
                         <a href="{{route('HomeSettings')}}" class="nav-link @if(request()->is('admin/settings/home')) active @endif">
                             <i class="fa fa-file-image-o nav-icon"></i>

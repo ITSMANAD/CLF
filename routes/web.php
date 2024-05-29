@@ -31,7 +31,7 @@ Route::controller(MainController::class)->group(function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view(config('theme.ActiveDir').'.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -131,6 +131,10 @@ Route::middleware('admin')->group(function () {
         //Carrier
         Route::get('/admin/shop/carriers','ShopCarriers')->name('ShopCarriers');
         Route::get('/admin/shop/carriers/add','ShopCarriersAdd')->name('ShopCarriersAdd');
+
+        //Theme Selector
+        Route::get('/admin/settings/theme','ThemeSelector')->name('ThemeSelector');
+        Route::get('/admin/settings/theme/refresh','RefreshThemes')->name('RefreshThemes');
     });
 });
 

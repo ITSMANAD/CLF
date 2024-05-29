@@ -72,7 +72,7 @@ class MainController extends Controller
         $h4 = Banners::all()->whereIn('blocation', 'h4');
         $Products = Products::all()->sortByDesc('created_at');
         $Posts = BlogPosts::all()->sortByDesc('created_at');
-        return view('index', compact('h1', 'h2', 'h3', 'h4', 'Products','Posts'));
+        return view(config('theme.ActiveDir').'.index', compact('h1', 'h2', 'h3', 'h4', 'Products','Posts'));
     }
 
     function blog()
@@ -107,7 +107,7 @@ class MainController extends Controller
 
     function OTP()
     {
-        return view('OTP');
+        return view(config('theme.ActiveDir').'.OTP');
     }
 
     function StoreOTP(StoreOTP $request)
@@ -140,7 +140,7 @@ class MainController extends Controller
     {
         $Product = Products::all()->whereIn('slug', $slug)->first();
         if (!is_null($Product)) {
-            return view('shop.singleproduct', compact('Product'));
+            return view(config('theme.ActiveDir').'.shop.singleproduct', compact('Product'));
         } else {
 
         }
@@ -222,4 +222,5 @@ class MainController extends Controller
         $ShopSettings->save();
         return redirect(route('index'));
     }
+
 }

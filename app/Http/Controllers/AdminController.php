@@ -26,6 +26,7 @@ use App\Models\Products_Price;
 use App\Models\Settings;
 use App\Models\ShopSettings;
 use App\Models\SubCategory;
+use App\Models\Themes;
 use App\Models\User;
 use Darryldecode\Cart\Cart;
 use Doctrine\Inflector\Rules\NorwegianBokmal\Rules;
@@ -37,76 +38,95 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Psy\Output\Theme;
+
 class AdminController extends Controller
 {
-    function Main() {
+    function Main()
+    {
         $CountUsers = User::all()->count();
-        return view('admin.index',compact('CountUsers'));
+        return view('admin.index', compact('CountUsers'));
     }
-    function GeneralSettings() {
+
+    function GeneralSettings()
+    {
         return view('admin.settings.general');
     }
+
     function HomeSettings()
     {
         //h$ means banner location in home page
-        $h1 = Banners::all()->whereIn('blocation','h1');
-        $h2 = Banners::all()->whereIn('blocation','h2');
-        $h3 = Banners::all()->whereIn('blocation','h3');
-        $h4 = Banners::all()->whereIn('blocation','h4');
-            return view('admin.settings.home',compact('h1','h2','h3','h4'));
+        $h1 = Banners::all()->whereIn('blocation', 'h1');
+        $h2 = Banners::all()->whereIn('blocation', 'h2');
+        $h3 = Banners::all()->whereIn('blocation', 'h3');
+        $h4 = Banners::all()->whereIn('blocation', 'h4');
+        return view('admin.settings.home', compact('h1', 'h2', 'h3', 'h4'));
     }
-    function CategorySettings(){
+
+    function CategorySettings()
+    {
         $categories = Category::all();
         $subcategories = SubCategory::all();
         $megacategories = MegaCategory::all();
-        return view('admin.content.category',compact('categories','subcategories','megacategories'));
+        return view('admin.content.category', compact('categories', 'subcategories', 'megacategories'));
     }
-    function CategoryAdd(){
+
+    function CategoryAdd()
+    {
         return view('admin.content.categoryadd');
     }
-    function CategorySubAdd(){
+
+    function CategorySubAdd()
+    {
         $categories = Category::all();
-        return view('admin.content.categorysubadd',compact('categories'));
+        return view('admin.content.categorysubadd', compact('categories'));
     }
-    function CategoryMegaAdd(){
+
+    function CategoryMegaAdd()
+    {
         $categories = Category::all();
         $subcategories = SubCategory::all();
-        return view('admin.content.categorymegadd',compact('categories','subcategories'));
+        return view('admin.content.categorymegadd', compact('categories', 'subcategories'));
     }
 
     function CategoryEdit($id)
     {
         $Category = Category::all()->find($id);
         $type = 0;
-        return view('admin.content.categoryedit',compact('Category','type'));
+        return view('admin.content.categoryedit', compact('Category', 'type'));
     }
+
     function SubCategoryEdit($id)
     {
         $categories = Category::all();
         $subcategory = SubCategory::all()->find($id);
         $type = 1;
-        return view('admin.content.CategorySubEdit',compact('categories','subcategory','type'));
+        return view('admin.content.CategorySubEdit', compact('categories', 'subcategory', 'type'));
     }
+
     function MegaCategoryEdit($id)
     {
         $categories = Category::all();
         $subcategories = SubCategory::all();
         $megacategory = MegaCategory::all()->find($id);
         $type = 2;
-        return view('admin.content.CategoryMegaEdit',compact('categories','subcategories','megacategory','type'));
+        return view('admin.content.CategoryMegaEdit', compact('categories', 'subcategories', 'megacategory', 'type'));
     }
-    function UsersSettings(){
+
+    function UsersSettings()
+    {
         $users = User::all();
-        return view('admin.Users.user',compact('users'));
+        return view('admin.Users.user', compact('users'));
     }
 
     function UsersEdit($id)
     {
-        $users = User::all()->whereIn('id',$id);
-        if (is_null($users)){
-            return \redirect(route('UsersSettings'))->with('error','این مقدار در دستابیس وجود ندارد!');
-        }else{
-            return view('admin.Users.edit',compact('users'));
+        $users = User::all()->whereIn('id', $id);
+        if (is_null($users)) {
+            return \redirect(route('UsersSettings'))->with('error', 'این مقدار در دستابیس وجود ندارد!');
+        } else {
+            return view('admin.Users.edit', compact('users'));
         }
 
     }
@@ -120,7 +140,7 @@ class AdminController extends Controller
     {
         $blogcategories = BlogCategory::all();
         $SubCategory = BlogSubCategory::all();
-        return view('admin.blog.categories',compact('blogcategories','SubCategory'));
+        return view('admin.blog.categories', compact('blogcategories', 'SubCategory'));
     }
 
     function AddBlogCategory()
@@ -131,10 +151,10 @@ class AdminController extends Controller
     function EditBlogCategory($id)
     {
         $BlogCategory = BlogCategory::all()->find($id);
-        if (is_null($BlogCategory)){
-            return \redirect(route('BlogCategory'))->with('error','این مقدار در دستابیس وجود ندارد!');
-        }else{
-            return view('admin.blog.editcategory',compact('BlogCategory'));
+        if (is_null($BlogCategory)) {
+            return \redirect(route('BlogCategory'))->with('error', 'این مقدار در دستابیس وجود ندارد!');
+        } else {
+            return view('admin.blog.editcategory', compact('BlogCategory'));
         }
 
     }
@@ -142,18 +162,18 @@ class AdminController extends Controller
     function AddBlogSubCategory()
     {
         $blogcategories = BlogCategory::all();
-      return view('admin.blog.addsubcategory',compact('blogcategories'));
+        return view('admin.blog.addsubcategory', compact('blogcategories'));
     }
 
     function EditBlogSubCategory($id)
     {
         $BlogSubCategory = BlogSubCategory::all()->find($id);
-        if (is_null($BlogSubCategory)){
-            return \redirect(route('BlogCategory'))->with('error','این مقدار در دیتابیس وجود ندارد!');
-        }else{
+        if (is_null($BlogSubCategory)) {
+            return \redirect(route('BlogCategory'))->with('error', 'این مقدار در دیتابیس وجود ندارد!');
+        } else {
             $blogcategories = BlogCategory::all();
 
-            return view('admin.blog.editsubcategory',compact('BlogSubCategory','blogcategories'));
+            return view('admin.blog.editsubcategory', compact('BlogSubCategory', 'blogcategories'));
         }
 
     }
@@ -161,13 +181,13 @@ class AdminController extends Controller
     function BlogPosts()
     {
         $BlogPosts = BlogPosts::all()->sortByDesc('created_at');
-        return view('admin.blog.blogposts',compact('BlogPosts'));
+        return view('admin.blog.blogposts', compact('BlogPosts'));
     }
 
     function HomeSettingsEdit($id)
     {
         $Img = Banners::all()->find($id);
-        return view('admin.settings.edithome',compact('Img'));
+        return view('admin.settings.edithome', compact('Img'));
     }
 
     function BlogNewPost()
@@ -178,27 +198,27 @@ class AdminController extends Controller
     function BlogEditPost($id)
     {
         $BlogPost = BlogPosts::all()->find($id);
-        if (is_null($BlogPost)){
-            return back()->with('error','این مقدار در دیتابیس وجود ندارد!');
-        }else{
-            return view('admin.blog.editpost',compact('BlogPost'));
+        if (is_null($BlogPost)) {
+            return back()->with('error', 'این مقدار در دیتابیس وجود ندارد!');
+        } else {
+            return view('admin.blog.editpost', compact('BlogPost'));
         }
     }
 
     function ShopSettings()
     {
         $ShopSettings = ShopSettings::all()->first();
-        if (is_null($ShopSettings)){
+        if (is_null($ShopSettings)) {
             return view('admin.content.ShopSettings');
-        }else{
-            return view('admin.content.ShopSettings',compact('ShopSettings'));
+        } else {
+            return view('admin.content.ShopSettings', compact('ShopSettings'));
         }
     }
 
     function ShopAttributeGroups()
     {
         $attributes = attributegroups::all()->sortByDesc('created_at');
-        return view('admin.content.Attributes.AttributeGroups',compact('attributes'));
+        return view('admin.content.Attributes.AttributeGroups', compact('attributes'));
     }
 
     function ShopAttributeGroupsAdd()
@@ -208,28 +228,28 @@ class AdminController extends Controller
 
     function ShopAttributeGroupsEdit($id)
     {
-        $AttributeGroups = attributegroups::all()->whereIn('id',$id)->first();
-        if (is_null($AttributeGroups)){
-            return \redirect(route('ShopAttributeGroups'))->with('error','آیدی یافت نشد!');
-        }else{
-            return view('admin.content.Attributes.ShopAttributeGroupsEdit',compact('AttributeGroups'));
+        $AttributeGroups = attributegroups::all()->whereIn('id', $id)->first();
+        if (is_null($AttributeGroups)) {
+            return \redirect(route('ShopAttributeGroups'))->with('error', 'آیدی یافت نشد!');
+        } else {
+            return view('admin.content.Attributes.ShopAttributeGroupsEdit', compact('AttributeGroups'));
         }
     }
 
     function ShopAttributeAdd()
     {
         $AttributeGroups = attributegroups::all();
-        return view('admin.content.Attributes.AttributeAdd',compact('AttributeGroups'));
+        return view('admin.content.Attributes.AttributeAdd', compact('AttributeGroups'));
     }
 
     function ShopAttributesGroupAt($id)
     {
-        $AttributeGroups = attributegroups::all()->whereIn('id',$id);
-        if (count($AttributeGroups) > 0){
-            $attributes = Attributes::all()->whereIn('attributeGroup',$id)->sortByDesc('created_at');
-            return view('admin.content.Attributes.GroupAttributes',compact('attributes','AttributeGroups'));
-        }else{
-            return \redirect(route('ShopAttributeGroups'))->with('error','آیدی یافت نشد!');
+        $AttributeGroups = attributegroups::all()->whereIn('id', $id);
+        if (count($AttributeGroups) > 0) {
+            $attributes = Attributes::all()->whereIn('attributeGroup', $id)->sortByDesc('created_at');
+            return view('admin.content.Attributes.GroupAttributes', compact('attributes', 'AttributeGroups'));
+        } else {
+            return \redirect(route('ShopAttributeGroups'))->with('error', 'آیدی یافت نشد!');
         }
 
     }
@@ -237,34 +257,36 @@ class AdminController extends Controller
     function ShopBrands()
     {
         $Brands = Brands::all()->sortByDesc('created_at');
-        return view('admin.content.Brands.Brands',compact('Brands'));
+        return view('admin.content.Brands.Brands', compact('Brands'));
     }
 
     function ShopBrandsAdd()
     {
         return view('admin.content.Brands.NewBrand');
     }
-    function ShopProducts(){
+
+    function ShopProducts()
+    {
         $Products = Products::all()->sortByDesc('created_at');
-        return view('admin.content.Products',compact('Products'));
+        return view('admin.content.Products', compact('Products'));
     }
 
     function ShopProduct($id)
     {
-        $Product = Products::all()->whereIn('id',$id)->first();
-        return view('admin.content.ProductInformation',compact('Product'));
+        $Product = Products::all()->whereIn('id', $id)->first();
+        return view('admin.content.ProductInformation', compact('Product'));
     }
 
     function ProductsSpecs()
     {
         $Products = Products::all()->sortByDesc('created_at');
-        return view('admin.content.specs',compact('Products'));
+        return view('admin.content.specs', compact('Products'));
     }
 
     function ShopInventory()
     {
         $Inventory = products_inventory::all();
-        return view('admin.content.inventory',compact('Inventory'));
+        return view('admin.content.inventory', compact('Inventory'));
     }
 
     function ShopCarriers()
@@ -275,67 +297,69 @@ class AdminController extends Controller
     function ShopCarriersAdd()
     {
 
-
-
-
     }
-    
+
+    function ThemeSelector()
+    {
+        return view('admin.settings.ThemeSelector.themes');
+    }
+
     // ------------------
     function GeneralUpdate(Request $request)
     {
         //Upload Image
-        $this->validate($request,[
+        $this->validate($request, [
             'slogo' => 'required|mimes:jpg,jpeg,png,gif|max:10240'
         ]);
 
-        $destination= base_path().'/public/img/';
-        if(!is_dir($destination))
-        {
-            mkdir($destination,0777,true);
+        $destination = base_path() . '/public/img/';
+        if (!is_dir($destination)) {
+            mkdir($destination, 0777, true);
         }
-        $destination=$destination.'/';
-        $file=$request->file('slogo');
-        $filenameone = rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
-        $file->move($destination,$filenameone);
+        $destination = $destination . '/';
+        $file = $request->file('slogo');
+        $filenameone = rand(1111111, 99999999) . '.' . $file->getClientOriginalExtension();
+        $file->move($destination, $filenameone);
 
         $settings = Settings::all()->find(1);
         $settings->sname = $request->input('sname');
         $settings->sdescription = $request->input('sdescription');
-        $settings->slogo = '/img/'.$filenameone;
+        $settings->slogo = '/img/' . $filenameone;
         $settings->update();
         return back()->with('success', 'عملیات با موفقیت انجام شد!');
     }
 
-    function HomeSettingsSubmit(UploadBannerImage $request){
+    function HomeSettingsSubmit(UploadBannerImage $request)
+    {
         //Upload Image
-        $destination= base_path().'/public/img/';
-        if(!is_dir($destination))
-        {
-            mkdir($destination,0777,true);
+        $destination = base_path() . '/public/img/';
+        if (!is_dir($destination)) {
+            mkdir($destination, 0777, true);
         }
-        $destination=$destination.'/';
-        $file=$request->file('bimage');
-        $filenameone = rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
-        $file->move($destination,$filenameone);
+        $destination = $destination . '/';
+        $file = $request->file('bimage');
+        $filenameone = rand(1111111, 99999999) . '.' . $file->getClientOriginalExtension();
+        $file->move($destination, $filenameone);
         $id = $request->input('id');
         $banner = Banners::all()->find($id);
         $banner->blink = $request->input('blink');
         $banner->bname = $request->input('bname');
-        $banner->bimage = '/img/'.$filenameone;
+        $banner->bimage = '/img/' . $filenameone;
         $banner->update();
 
     }
 
-    function CategoryDelete(Request $request){
+    function CategoryDelete(Request $request)
+    {
         $id = $request->input('id');
-        $subcheck = SubCategory::all()->whereIn('category',$id);
-        $megacheck = MegaCategory::all()->whereIn('category',$id);
-        if ($subcheck->count() > 0 OR $subcheck->count() > 0 AND $megacheck->count() > 0){
-            return back()->with('error','عملیات با مواجه شد! زیرا این دسته بندی دارای والد میباشد.');
-        }else{
+        $subcheck = SubCategory::all()->whereIn('category', $id);
+        $megacheck = MegaCategory::all()->whereIn('category', $id);
+        if ($subcheck->count() > 0 or $subcheck->count() > 0 and $megacheck->count() > 0) {
+            return back()->with('error', 'عملیات با مواجه شد! زیرا این دسته بندی دارای والد میباشد.');
+        } else {
             $categories = Category::all()->find($id);
             $categories->delete();
-            return back()->with('success','عملیات با موفقیت انجام شد!');
+            return back()->with('success', 'عملیات با موفقیت انجام شد!');
         }
 
     }
@@ -343,48 +367,51 @@ class AdminController extends Controller
     function CategorySubDelete(Request $request)
     {
         $id = $request->input('id');
-        $megacheck = MegaCategory::all()->whereIn('subcategory',$id);
-        if ($megacheck->count() > 0){
-            return back()->with('error','عملیات با مواجه شد! زیرا این دسته بندی دارای والد میباشد.');
-        }else{
+        $megacheck = MegaCategory::all()->whereIn('subcategory', $id);
+        if ($megacheck->count() > 0) {
+            return back()->with('error', 'عملیات با مواجه شد! زیرا این دسته بندی دارای والد میباشد.');
+        } else {
             $subcategories = SubCategory::all()->find($id);
             $subcategories->delete();
-            return back()->with('success','عملیات با موفقیت انجام شد!');
+            return back()->with('success', 'عملیات با موفقیت انجام شد!');
         }
 
     }
+
     function CategoryMegaDelete(Request $request)
     {
         $id = $request->input('id');
         $megacategories = MegaCategory::all()->find($id);
         $megacategories->delete();
-        return back()->with('success','عملیات با موفقیت انجام شد!');
+        return back()->with('success', 'عملیات با موفقیت انجام شد!');
     }
+
     function CategoryAddOne(StoreCategoryRequest $request)
     {
         $categories = new Category;
 
         //add
-        $categories->name =  $request->input('name');
-        $categories->slug =  $request->input('slug');
-        $categories->description =  $request->input('description');
-        $categories->status =  $request->input('status');
-        $categories->logo =  "#";
-        $categorycheck = Category::all()->whereIn('slug',$request->input('slug'));
+        $categories->name = $request->input('name');
+        $categories->slug = $request->input('slug');
+        $categories->description = $request->input('description');
+        $categories->status = $request->input('status');
+        $categories->logo = "#";
+        $categorycheck = Category::all()->whereIn('slug', $request->input('slug'));
         $categories->save();
 
     }
+
     function CategoryAddSubOne(StoreSubCategory $request)
     {
         $subcategory = new SubCategory;
         //add
-        $subcategory->name =  $request->input('name');
-        $subcategory->slug =  $request->input('slug');
-        $subcategory->description =  $request->input('description');
-        $subcategory->status =  $request->input('status');
-        $subcategory->category =  $request->input('category');
-        $subcategory->logo =  "#";
-        $subcategorycheck = SubCategory::all()->whereIn('slug',$request->input('slug'));
+        $subcategory->name = $request->input('name');
+        $subcategory->slug = $request->input('slug');
+        $subcategory->description = $request->input('description');
+        $subcategory->status = $request->input('status');
+        $subcategory->category = $request->input('category');
+        $subcategory->logo = "#";
+        $subcategorycheck = SubCategory::all()->whereIn('slug', $request->input('slug'));
         $subcategory->save();
 
     }
@@ -393,48 +420,51 @@ class AdminController extends Controller
     {
         $megacategory = new MegaCategory();
         //add
-        $megacategory->name =  $request->input('name');
-        $megacategory->slug =  $request->input('slug');
-        $megacategory->description =  $request->input('description');
-        $megacategory->status =  $request->input('status');
-        $megacategory->category =  $request->input('category');
-        $megacategory->subcategory =  $request->input('subcategory');
-        $megacategory->logo =  "#";
-        $megacategorycheck = MegaCategory::all()->whereIn('slug',$request->input('slug'));
-        if ($megacategorycheck->count() > 0){
-            return back()->with('error','لینک تکراری است!');
-        }else{
+        $megacategory->name = $request->input('name');
+        $megacategory->slug = $request->input('slug');
+        $megacategory->description = $request->input('description');
+        $megacategory->status = $request->input('status');
+        $megacategory->category = $request->input('category');
+        $megacategory->subcategory = $request->input('subcategory');
+        $megacategory->logo = "#";
+        $megacategorycheck = MegaCategory::all()->whereIn('slug', $request->input('slug'));
+        if ($megacategorycheck->count() > 0) {
+            return back()->with('error', 'لینک تکراری است!');
+        } else {
             $megacategory->save();
             return \redirect(route('CategorySettings'));
         }
 
     }
+
     function CategoryUpdateOne(StoreCategoryRequest $request)
     {
         $id = $request->input('id');
         $categories = Category::all()->find($id);
         //update
-        $categories->name =  $request->input('name');
-        $categories->slug =  $request->input('slug');
-        $categories->description =  $request->input('description');
-        $categories->status =  $request->input('status');
-        $categories->logo =  "#";
+        $categories->name = $request->input('name');
+        $categories->slug = $request->input('slug');
+        $categories->description = $request->input('description');
+        $categories->status = $request->input('status');
+        $categories->logo = "#";
         $categories->update();
     }
+
     function SubCategoryUpdateOne(Request $request)
     {
         $id = $request->input('id');
         $subcategory = SubCategory::all()->find($id);
         //add
-        $subcategory->name =  $request->input('name');
-        $subcategory->slug =  $request->input('slug');
-        $subcategory->description =  $request->input('description');
-        $subcategory->status =  $request->input('status');
-        $subcategory->category =  $request->input('category');
-        $subcategory->logo =  "#";
+        $subcategory->name = $request->input('name');
+        $subcategory->slug = $request->input('slug');
+        $subcategory->description = $request->input('description');
+        $subcategory->status = $request->input('status');
+        $subcategory->category = $request->input('category');
+        $subcategory->logo = "#";
         $subcategory->update();
         return \redirect(route('CategorySettings'));
     }
+
     function UsersEditSubmit(Request $request)
     {
         $id = $request->input('id');
@@ -444,9 +474,9 @@ class AdminController extends Controller
         $User->isAdmin = $request->input('isAdmin');
         $User->address = $request->input('address');
         $User->postalcode = $request->input('postalcode');
-            $User->phone = $request->input('phone');
-            $User->update();
-            return back()->with('success','عملیات با موفقیت انجام شد!');
+        $User->phone = $request->input('phone');
+        $User->update();
+        return back()->with('success', 'عملیات با موفقیت انجام شد!');
 
 
     }
@@ -458,28 +488,27 @@ class AdminController extends Controller
         $User->isAdmin = $request->input('isAdmin');
         $User->address = $request->input('address');
         $User->postalcode = $request->input('postalcode');
-        $checknum = User::all()->whereIn('phone',$request->input('phone'));
-        $checkmail = User::all()->whereIn('email',$request->input('email'));
-        if ($request->input('passwordd') == $request->input('repassword')){
-                if ($checknum->count() > 0){
-                    return back()->with('error','شماره تماس قبلا ثبت شده است!');
-                }else{
-                    if ($checkmail->count() > 0){
-                        return back()->with('error','ایمیل قبلا ثبت شده است!');
-                    }else{
-                        $User->password = Hash::make($request->input('passwordd'));
-                        $User->email = $request->input('emaill');
+        $checknum = User::all()->whereIn('phone', $request->input('phone'));
+        $checkmail = User::all()->whereIn('email', $request->input('email'));
+        if ($request->input('passwordd') == $request->input('repassword')) {
+            if ($checknum->count() > 0) {
+                return back()->with('error', 'شماره تماس قبلا ثبت شده است!');
+            } else {
+                if ($checkmail->count() > 0) {
+                    return back()->with('error', 'ایمیل قبلا ثبت شده است!');
+                } else {
+                    $User->password = Hash::make($request->input('passwordd'));
+                    $User->email = $request->input('emaill');
                     $User->phone = $request->input('phone');
                     $User->save();
-                    return back()->with('success','عملیات با موفقیت انجام شد!');
-                    }
+                    return back()->with('success', 'عملیات با موفقیت انجام شد!');
                 }
+            }
 
 
-        }else{
-            return back()->with('error','رمز عبور ها یکسان نیست!');
+        } else {
+            return back()->with('error', 'رمز عبور ها یکسان نیست!');
         }
-
 
 
     }
@@ -488,25 +517,26 @@ class AdminController extends Controller
     {
         $User = User::all()->find($id);
 
-            if ($User->id == auth()->id()){
-                return back()->with('error','شما نمیتوانید خود را حذف کنید!');
-            }else{
-                $User->delete();
-                \redirect('/admin/users')->with('success','عملیات با موفقیت انجام شد!');
-            }
+        if ($User->id == auth()->id()) {
+            return back()->with('error', 'شما نمیتوانید خود را حذف کنید!');
+        } else {
+            $User->delete();
+            \redirect('/admin/users')->with('success', 'عملیات با موفقیت انجام شد!');
+        }
 
     }
 
     function UsersDetails($id)
     {
         $Users = User::all()->find($id);
-        if (is_null($Users)){
-            return \redirect('/admin/users')->with('error','کاربری با این آیدی وجود ندارد!');
-        }else{
-            return view('admin.Users.details',compact('Users'));
+        if (is_null($Users)) {
+            return \redirect('/admin/users')->with('error', 'کاربری با این آیدی وجود ندارد!');
+        } else {
+            return view('admin.Users.details', compact('Users'));
         }
 
     }
+
     function AddBlogCategorySubmit(Request $request)
     {
         $BlogCategory = new BlogCategory();
@@ -514,21 +544,22 @@ class AdminController extends Controller
         $BlogCategory->slug = $request->input('slug');
         $BlogCategory->tags = $request->input('tags');
         $BlogCategory->save();
-        return back()->with('success','عملیات با موفقیت انجام شد!');
+        return back()->with('success', 'عملیات با موفقیت انجام شد!');
     }
+
     function EditBlogCategorySubmit(Request $request)
     {
         $id = $request->input('id');
         $BlogCategory = BlogCategory::all()->find($id);
         $BlogCategory->name = $request->input('name');
-        $slug = \Illuminate\Support\Str::slug($request->input('slug'),'-');
+        $slug = \Illuminate\Support\Str::slug($request->input('slug'), '-');
         $BlogCategory->slug = $slug;
         $BlogCategory->tags = $request->input('tags');
 
-        if ($BlogCategory->update()){
-            return back()->with('success','عملیات با موفقیت انجام شد!');
-        }else{
-            return back()->with('error','عملیات با خطا مواجه شد!');
+        if ($BlogCategory->update()) {
+            return back()->with('success', 'عملیات با موفقیت انجام شد!');
+        } else {
+            return back()->with('error', 'عملیات با خطا مواجه شد!');
         }
     }
 
@@ -539,14 +570,14 @@ class AdminController extends Controller
         $BlogSubCategory->slug = $request->input('slug');
         $BlogSubCategory->tags = $request->input('tags');
         $BlogSubCategory->category = $request->input('category');
-        if (is_null($request->input('category'))){
-            return back()->with('error','یک دسته بندی مادر انتخاب کنید!');
-        }else{
+        if (is_null($request->input('category'))) {
+            return back()->with('error', 'یک دسته بندی مادر انتخاب کنید!');
+        } else {
 
-            if ($BlogSubCategory->save()){
-                return back()->with('success','عملیات با موفقیت انجام شد!');
-            }else{
-                return back()->with('error','عملیات با خطا مواجه شد!');
+            if ($BlogSubCategory->save()) {
+                return back()->with('success', 'عملیات با موفقیت انجام شد!');
+            } else {
+                return back()->with('error', 'عملیات با خطا مواجه شد!');
             }
         }
     }
@@ -554,26 +585,26 @@ class AdminController extends Controller
     function DeleteBlogSubCategory($id)
     {
         $BlogSubCategory = BlogSubCategory::all()->find($id);
-        if (!is_null($BlogSubCategory)){
+        if (!is_null($BlogSubCategory)) {
             $BlogSubCategory->delete();
-            return back()->with('success','عملیات با موفقیت انجام شد!');
-        }else{
-            return \redirect(route('BlogCategory'))->with('error','عملیات با خطا مواجه شد!');
+            return back()->with('success', 'عملیات با موفقیت انجام شد!');
+        } else {
+            return \redirect(route('BlogCategory'))->with('error', 'عملیات با خطا مواجه شد!');
         }
     }
 
     function DeleteBlogCategory($id)
     {
         $BlogCategory = BlogCategory::all()->find($id);
-        $BlogSubCategory =BlogSubCategory::all()->whereIn('category',$id);
-        if (count($BlogSubCategory) > 0){
-            return \redirect(route('BlogCategory'))->with('error','انجام عملیات امکان پدیر نیست زیرا یک یا چند دسته بندی فرزند برای این دسته بندی وجود دارد!');
-        }else{
-            if (!is_null($BlogCategory)){
+        $BlogSubCategory = BlogSubCategory::all()->whereIn('category', $id);
+        if (count($BlogSubCategory) > 0) {
+            return \redirect(route('BlogCategory'))->with('error', 'انجام عملیات امکان پدیر نیست زیرا یک یا چند دسته بندی فرزند برای این دسته بندی وجود دارد!');
+        } else {
+            if (!is_null($BlogCategory)) {
                 $BlogCategory->delete();
-                return back()->with('success','عملیات با موفقیت انجام شد!');
-            }else{
-                return \redirect(route('BlogCategory'))->with('error','عملیات با خطا مواجه شد!');
+                return back()->with('success', 'عملیات با موفقیت انجام شد!');
+            } else {
+                return \redirect(route('BlogCategory'))->with('error', 'عملیات با خطا مواجه شد!');
             }
         }
 
@@ -587,14 +618,14 @@ class AdminController extends Controller
         $BlogSubCategory->slug = $request->input('slug');
         $BlogSubCategory->tags = $request->input('tags');
         $BlogSubCategory->category = $request->input('category');
-        if (is_null($request->input('category'))){
-            return back()->with('error','یک دسته بندی مادر انتخاب کنید!');
-        }else{
+        if (is_null($request->input('category'))) {
+            return back()->with('error', 'یک دسته بندی مادر انتخاب کنید!');
+        } else {
 
-            if ($BlogSubCategory->update()){
-                return back()->with('success','عملیات با موفقیت انجام شد!');
-            }else{
-                return back()->with('error','عملیات با خطا مواجه شد!');
+            if ($BlogSubCategory->update()) {
+                return back()->with('success', 'عملیات با موفقیت انجام شد!');
+            } else {
+                return back()->with('error', 'عملیات با خطا مواجه شد!');
             }
         }
     }
@@ -602,43 +633,42 @@ class AdminController extends Controller
     function BlogNewPostSubmit(StoreBlogPostRequest $request)
     {
 
-            $BlogPosts = new BlogPosts();
-            $this->validate($request,[
-                'thumbnail' => 'required|mimes:jpg,jpeg,png,gif|max:30685'
-            ]);
+        $BlogPosts = new BlogPosts();
+        $this->validate($request, [
+            'thumbnail' => 'required|mimes:jpg,jpeg,png,gif|max:30685'
+        ]);
 
-            $destination= base_path().'/public/img/';
-            if(!is_dir($destination))
-            {
-                mkdir($destination,0777,true);
-            }
-            $destination=$destination.'/';
-            $file=$request->file('thumbnail');
-            $filenameone = $file->getFilename().rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
-            $file->move($destination,$filenameone);
-            $BlogPosts->thumbnail = "/img/".$filenameone;
-            $BlogPosts->title = $request->input('title');
-            $BlogPosts->text = $request->input('text');
-            $slug = \Illuminate\Support\Str::slug($request->input('slug'),'-');
-            $BlogPosts->slug = $slug;
-            $BlogPosts->description = $request->input('description');
-            $BlogPosts->tags = $request->input('tags');
-            $BlogPosts->category = $request->input('category');
-            $BlogPosts->subcategory = 0;
-            $BlogPosts->auther = auth()->user()->id;
-            $BlogPosts->status = $request->input('status');
-            $BlogPosts->save();
+        $destination = base_path() . '/public/img/';
+        if (!is_dir($destination)) {
+            mkdir($destination, 0777, true);
+        }
+        $destination = $destination . '/';
+        $file = $request->file('thumbnail');
+        $filenameone = $file->getFilename() . rand(1111111, 99999999) . '.' . $file->getClientOriginalExtension();
+        $file->move($destination, $filenameone);
+        $BlogPosts->thumbnail = "/img/" . $filenameone;
+        $BlogPosts->title = $request->input('title');
+        $BlogPosts->text = $request->input('text');
+        $slug = \Illuminate\Support\Str::slug($request->input('slug'), '-');
+        $BlogPosts->slug = $slug;
+        $BlogPosts->description = $request->input('description');
+        $BlogPosts->tags = $request->input('tags');
+        $BlogPosts->category = $request->input('category');
+        $BlogPosts->subcategory = 0;
+        $BlogPosts->auther = auth()->user()->id;
+        $BlogPosts->status = $request->input('status');
+        $BlogPosts->save();
     }
 
     function BlogDeletePost(Request $request)
     {
         $id = $request->input('id');
         $BlogPosts = BlogPosts::all()->find($id);
-        if (!is_null($BlogPosts) > 0){
+        if (!is_null($BlogPosts) > 0) {
             $BlogPosts->delete();
-            return \redirect(route('BlogPosts'))->with('success','عملیات با موفقیت انجام شد!');
-        }else{
-            return \redirect(route('BlogPosts'))->with('error','عملیات با خطا مواجه شد!');
+            return \redirect(route('BlogPosts'))->with('success', 'عملیات با موفقیت انجام شد!');
+        } else {
+            return \redirect(route('BlogPosts'))->with('error', 'عملیات با خطا مواجه شد!');
         }
     }
 
@@ -646,17 +676,16 @@ class AdminController extends Controller
     {
         $id = $request->input('id');
         $BlogPosts = BlogPosts::all()->find($id);
-        if ($request->hasFile('thumbnail')){
-            $destination= base_path().'/public/img/';
-            if(!is_dir($destination))
-            {
-                mkdir($destination,0777,true);
+        if ($request->hasFile('thumbnail')) {
+            $destination = base_path() . '/public/img/';
+            if (!is_dir($destination)) {
+                mkdir($destination, 0777, true);
             }
-            $destination=$destination.'/';
-            $file=$request->file('thumbnail');
-            $filenameone = $file->getFilename().rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
-            $file->move($destination,$filenameone);
-            $BlogPosts->thumbnail = "/img/".$filenameone;
+            $destination = $destination . '/';
+            $file = $request->file('thumbnail');
+            $filenameone = $file->getFilename() . rand(1111111, 99999999) . '.' . $file->getClientOriginalExtension();
+            $file->move($destination, $filenameone);
+            $BlogPosts->thumbnail = "/img/" . $filenameone;
         }
         $BlogPosts->title = $request->input('title');
         $BlogPosts->text = $request->input('text');
@@ -675,7 +704,7 @@ class AdminController extends Controller
         $ShopSettings->Currency = $request->input('currency');
         $ShopSettings->Ftitle = $request->input('title');
         $ShopSettings->Fseller = $request->input('Seller');
-            $ShopSettings->update();
+        $ShopSettings->update();
     }
 
     function ShopAttributeGroupsAddStore(Request $request)
@@ -692,12 +721,12 @@ class AdminController extends Controller
 
     function ShopAttributeGroupsDelete(Request $request)
     {
-        if (is_null($request->input('id'))){
-            return back()->with('error','آیدی پیدا نشد!');
-        }else{
-            $AttributeGroups = attributegroups::all()->whereIn('id',$request->input('id'))->first();
+        if (is_null($request->input('id'))) {
+            return back()->with('error', 'آیدی پیدا نشد!');
+        } else {
+            $AttributeGroups = attributegroups::all()->whereIn('id', $request->input('id'))->first();
             $AttributeGroups->delete();
-            return back()->with('success','درخواست با موفقیت انجام شد!');
+            return back()->with('success', 'درخواست با موفقیت انجام شد!');
         }
     }
 
@@ -709,10 +738,10 @@ class AdminController extends Controller
         ]);
         $name = $validatedData['name'];
         $id = $validatedData['id'];
-        $AttributesGroup = attributegroups::all()->whereIn('id',$id)->first();
+        $AttributesGroup = attributegroups::all()->whereIn('id', $id)->first();
         $AttributesGroup->name = $name;
         $AttributesGroup->update();
-        return \redirect(route('ShopAttributeGroups'))->with('success','درخواست با موفقیت انجام شد!');
+        return \redirect(route('ShopAttributeGroups'))->with('success', 'درخواست با موفقیت انجام شد!');
     }
 
     function ShopAttributeAddStore(Request $request)
@@ -730,56 +759,76 @@ class AdminController extends Controller
         $Attributes->attributeGroup = $attributeGroups;
         $Attributes->price = $price;
         $Attributes->save();
-        return \redirect(route('ShopAttributeGroups'))->with('success','درخواست با موفقیت انجام شد!');
+        return \redirect(route('ShopAttributeGroups'))->with('success', 'درخواست با موفقیت انجام شد!');
     }
 
     function ShopAttributeDelete(Request $request)
     {
-        if (is_null($request->input('id'))){
-            return back()->with('error','آیدی پیدا نشد!');
-        }else{
-            $Attribute = Attributes::all()->whereIn('id',$request->input('id'))->first();
+        if (is_null($request->input('id'))) {
+            return back()->with('error', 'آیدی پیدا نشد!');
+        } else {
+            $Attribute = Attributes::all()->whereIn('id', $request->input('id'))->first();
             $Attribute->delete();
-            return back()->with('success','درخواست با موفقیت انجام شد!');
+            return back()->with('success', 'درخواست با موفقیت انجام شد!');
         }
     }
 
     function ShopBrandsAddStore(Request $request)
     {
         $Brands = new Brands();
-        if ($request->hasFile('image')){
-            $destination= base_path().'/public/img/';
-            if(!is_dir($destination))
-            {
-                mkdir($destination,0777,true);
+        if ($request->hasFile('image')) {
+            $destination = base_path() . '/public/img/';
+            if (!is_dir($destination)) {
+                mkdir($destination, 0777, true);
             }
-            $destination=$destination.'/';
-            $file=$request->file('image');
-            $filenameone = $file->getFilename().rand(1111111,99999999).'.'. $file->getClientOriginalExtension();
-            $file->move($destination,$filenameone);
-            $Brands->image = "/img/".$filenameone;
+            $destination = $destination . '/';
+            $file = $request->file('image');
+            $filenameone = $file->getFilename() . rand(1111111, 99999999) . '.' . $file->getClientOriginalExtension();
+            $file->move($destination, $filenameone);
+            $Brands->image = "/img/" . $filenameone;
         }
         $Brands->name = $request->input('name');
         $Brands->description = $request->input('text');
-        $slug = \Illuminate\Support\Str::slug($request->input('slug'),'-');
+        $slug = \Illuminate\Support\Str::slug($request->input('slug'), '-');
         $Brands->slug = $slug;
         $Brands->save();
-        return \redirect(route('ShopBrands'))->with('success','عملیات با موفقیت انجام شد!');
+        return \redirect(route('ShopBrands'))->with('success', 'عملیات با موفقیت انجام شد!');
     }
 
     function ShopBrandsDelete(Request $request)
     {
         $validation = $request->validate([
-           'id' => 'required|string'
+            'id' => 'required|string'
         ]);
         $id = $validation['id'];
-        $check = Brands::all()->whereIn('id',$id)->first();
-        if (is_null($check)){
-            return back()->with('error','آیدی یافت نشد!');
-        }else{
+        $check = Brands::all()->whereIn('id', $id)->first();
+        if (is_null($check)) {
+            return back()->with('error', 'آیدی یافت نشد!');
+        } else {
             $check->delete();
-            return \redirect(route('ShopBrands'))->with('success','عملیات با موفقیت انجام شد!');
+            return \redirect(route('ShopBrands'))->with('success', 'عملیات با موفقیت انجام شد!');
         }
+    }
+
+    function RefreshThemes()
+    {
+        $ViewsPath = resource_path('views/Themes');
+        $viewFiles = File::directories($ViewsPath);
+        foreach ($viewFiles as $fileName) {
+            $DirName = basename($fileName);
+            $Check = Themes::all()->whereIn('name',$DirName);
+            if (count($Check)>0){
+
+            }else{
+                $Themes = new Themes();
+                $Themes->name = $DirName;
+                $Themes->address = $fileName;
+                $Themes->status = 0;
+                $Themes->save();
+            }
+
+        }
+        return back();
     }
 }
 

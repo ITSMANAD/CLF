@@ -133,17 +133,17 @@
                             <div class="accordion-body">
                                 <table class="table">
 
-                                    <tbody>
-                                    @php
-                                    $Product_Specs = \App\Models\Products_Specs::all()->whereIn('PID',$Product->id);
-                                    @endphp
-                                    @foreach($Product_Specs as $Product_Spec)
-                                    <tr>
-                                        <td>{{$Product_Spec->title}}</td>
-                                        <td>{{$Product_Spec->value}}</td>
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
+{{--                                    <tbody>--}}
+{{--                                    @php--}}
+{{--                                    $Product_Specs = \App\Models\Products_Specs::all()->whereIn('PID',$Product->id);--}}
+{{--                                    @endphp--}}
+{{--                                    @foreach($Product_Specs as $Product_Spec)--}}
+{{--                                    <tr>--}}
+{{--                                        <td>{{$Product_Spec->title}}</td>--}}
+{{--                                        <td>{{$Product_Spec->value}}</td>--}}
+{{--                                    </tr>--}}
+{{--                                    @endforeach--}}
+{{--                                    </tbody>--}}
                                 </table>
                             </div>
                         </div>
