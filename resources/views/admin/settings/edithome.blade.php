@@ -62,10 +62,10 @@
                                             <div class="col-md-6">
                                                 <fieldset class="form-group">
                                                     <label>تصویر</label>
-{{--                                                    <div class="custom-file">--}}
-{{--                                                        <input id="image" type="file" accept="image/*" name="bimage" class="custom-file-input">--}}
-{{--                                                        <label class="custom-file-label text-left" for="image">{{$Img->bimage}}</label>--}}
-{{--                                                    </div>--}}
+                                                    <div class="custom-file">
+                                                        <input id="image" type="file" accept="image/*" name="bimage" class="custom-file-input">
+                                                        <label class="custom-file-label text-left" for="image">{{$Img->bimage}}</label>
+                                                    </div>
 
 
                                                 </fieldset>
